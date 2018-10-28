@@ -12,11 +12,11 @@ import java.util.List;
 import br.edu.digitalhouse.museuapp.R;
 import br.edu.digitalhouse.museuapp.model.Gallery;
 
-public class FloorListAdapter  extends RecyclerView.Adapter<FloorListAdapter.ViewHolder>{
+public class FloorRecyclerViewAdapter extends RecyclerView.Adapter<FloorRecyclerViewAdapter.ViewHolder>{
 
     private List<Gallery> galleryList;
 
-    public FloorListAdapter(List<Gallery> galleryList) {
+    public FloorRecyclerViewAdapter(List<Gallery> galleryList) {
         this.galleryList = galleryList;
     }
 

@@ -6,11 +6,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
-public class FloorsPageAdapter extends FragmentStatePagerAdapter {
+public class FloorListPageAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> fragmentList;
 
-    public FloorsPageAdapter(FragmentManager fm, List<Fragment> fragmentList) {
+    public FloorListPageAdapter(FragmentManager fm, List<Fragment> fragmentList) {
         super(fm);
         this.fragmentList = fragmentList;
     }

@@ -13,14 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.digitalhouse.museuapp.R;
-import br.edu.digitalhouse.museuapp.adapter.FloorListAdapter;
+import br.edu.digitalhouse.museuapp.adapter.FloorRecyclerViewAdapter;
 import br.edu.digitalhouse.museuapp.model.Gallery;
 
 public class FloorFragment extends Fragment {
 
     private List<Gallery> galleries = new ArrayList<>();
     private RecyclerView recyclerView;
-    private FloorListAdapter adapter;
+    private FloorRecyclerViewAdapter adapter;
 
 
     public FloorFragment() {
@@ -33,7 +33,7 @@ public class FloorFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_floor, container, false);
 
-        adapter = new FloorListAdapter(galleries);
+        adapter = new FloorRecyclerViewAdapter(galleries);
 
         recyclerView = view.findViewById(R.id.recycler_view_floors_id);
         recyclerView.setAdapter(adapter);
