@@ -9,6 +9,7 @@ public class LoginManager {
 
     public LoginManager() {
         usuarios.put("museu@digital.com", "1234");
+        usuarios.put("a", "a");
 
     }
 

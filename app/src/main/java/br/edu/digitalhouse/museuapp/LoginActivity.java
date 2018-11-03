@@ -51,10 +51,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     // Iniciamos a chamada para a proxima activity passando a intenção
                     startActivity(intent);
+                    finish();
                 } else {
 
                     // Se os dados não forem validos mostramos uma menssagem para o usuário
-                    Toast.makeText(LoginActivity.this, "Usuário e/ou senha inválido(s)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Invalid e-mail or password", Toast.LENGTH_SHORT).show();
                 }
             }
         });

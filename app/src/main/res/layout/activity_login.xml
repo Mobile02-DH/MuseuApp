@@ -9,11 +9,12 @@
     android:paddingRight="8dp"
     tools:context=".LoginActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <android.support.v7.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/logo"
         app:civ_border_color="@color/primary"
         app:civ_border_width="2dp" />
@@ -40,7 +41,7 @@
             android:id="@+id/txt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="password"
+            android:hint="Password"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 

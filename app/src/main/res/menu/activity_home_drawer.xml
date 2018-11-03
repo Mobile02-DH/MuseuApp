@@ -25,9 +25,9 @@
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_myGallery"
+                android:icon="@drawable/ic_menu_my_gallery"
+                android:title="Personal Gallery" />
         </menu>
     </item>
 

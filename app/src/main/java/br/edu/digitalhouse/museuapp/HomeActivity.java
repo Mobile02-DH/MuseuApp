@@ -1,5 +1,6 @@
 package br.edu.digitalhouse.museuapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,7 @@ public class HomeActivity extends AppCompatActivity
     private FloatingActionButton fab;
     private FloorListPageAdapter floorListPageAdapter = new FloorListPageAdapter(getSupportFragmentManager(), getDetailsFragmentList());
     private FloorMapPageAdapter floorMapPageAdapter = new FloorMapPageAdapter(getSupportFragmentManager(), getMapsFragmentList());
+    private LinearLayout drawerHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +50,19 @@ public class HomeActivity extends AppCompatActivity
         setFabListenerWhenOnListDisplay();
         configureDrawerLayout();
         configureViewPager();
+        setLoginClickListener(drawerHeader);
 
         viewPager.setAdapter(floorListPageAdapter);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setLoginClickListener(View view){
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
     }
 
     private void configureViewPager() {
@@ -91,6 +104,7 @@ public class HomeActivity extends AppCompatActivity
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.container);
         fab = findViewById(R.id.fab);
+        drawerHeader = findViewById(R.id.drawer_menu_header);
     }
 
     private List<Fragment> getDetailsFragmentList() {
@@ -159,7 +173,7 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_myGallery) {
 
         }
 
