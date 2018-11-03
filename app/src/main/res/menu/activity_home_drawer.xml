@@ -7,27 +7,27 @@
         <item
             android:id="@+id/nav_floor_1"
             android:icon="@drawable/ic_menu_floor_1"
-            android:title="1st Floor" />
+            android:title="@string/_1st_floor" />
         <item
             android:id="@+id/nav_floor_2"
             android:icon="@drawable/ic_menu_floor_2"
-            android:title="2nd Floor" />
+            android:title="@string/_2nd_floor" />
         <item
             android:id="@+id/nav_floor_3"
             android:icon="@drawable/ic_menu_floor_3"
-            android:title="3rd Floor" />
+            android:title="@string/_3rd_floor" />
     </group>
 
-    <item android:title="More">
+    <item android:title="@string/submenu_title">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/share" />
             <item
                 android:id="@+id/nav_myGallery"
                 android:icon="@drawable/ic_menu_my_gallery"
-                android:title="Personal Gallery" />
+                android:title="@string/personal_gallery" />
         </menu>
     </item>
 

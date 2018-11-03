@@ -28,7 +28,7 @@
             android:id="@+id/txt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress" />
     </android.support.design.widget.TextInputLayout>
 
@@ -41,7 +41,7 @@
             android:id="@+id/txt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="log in" />
+        android:text="@string/log_in" />
 
 
     <TextView
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="end"
-        android:text="register now"
+        android:text="@string/register_now"
         android:textAllCaps="true" />
 
     <LinearLayout
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="OR" />
+            android:text="@string/or" />
 
         <View
             android:layout_width="0dp"
@@ -99,7 +99,7 @@
         android:layout_marginTop="24dp"
         android:drawableStart="@drawable/ic_facebook"
         android:drawableLeft="@drawable/ic_facebook"
-        android:text="login with facebook"
+        android:text="@string/login_with_facebook"
         app:backgroundTint="@color/facebook" />
 
 
@@ -109,7 +109,7 @@
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_google"
         android:drawableLeft="@drawable/ic_google"
-        android:text="login with google"
+        android:text="@string/login_with_google"
         app:backgroundTint="@color/google" />
 
 </LinearLayout>

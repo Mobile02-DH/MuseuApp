@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
 
                     // Se os dados não forem validos mostramos uma menssagem para o usuário
-                    Toast.makeText(LoginActivity.this, "Invalid e-mail or password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
                 }
             }
         });

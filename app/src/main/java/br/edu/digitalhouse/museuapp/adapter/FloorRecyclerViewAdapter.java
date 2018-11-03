@@ -51,8 +51,8 @@ public class FloorRecyclerViewAdapter extends RecyclerView.Adapter<FloorRecycler
             super(itemView);
 
             roomNumber = itemView.findViewById(R.id.floor_item_room_id);
-            category = itemView.findViewById(R.id.floor_item_category_id);
-            roomName = itemView.findViewById(R.id.floor_item_name_id);
+            category = itemView.findViewById(R.id.floor_item_name_id);
+            roomName = itemView.findViewById(R.id.floor_item_category_id);
         }
 
         public void bind(final Gallery gallery){

@@ -34,24 +34,24 @@ public class RegisterActivity extends AppCompatActivity {
                         textInputPassword.getEditText().getText().toString().isEmpty()||
                         textInputRepeatePassword.getEditText().getText().toString().isEmpty()){
 
-                    Toast.makeText(RegisterActivity.this, "Please fill all the required fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
 
                 } else if (!(textInputEmail.getEditText().getText().toString().contains("@"))){
 
-                    Toast.makeText(RegisterActivity.this, "Invalid e-mail address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.invalid_email, Toast.LENGTH_SHORT).show();
 
                 } else if (!(textInputPassword.getEditText().getText().toString().equals(
                         textInputRepeatePassword.getEditText().getText().toString()))){
 
-                    Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.passwords_no_match, Toast.LENGTH_SHORT).show();
 
                 } else if (textInputPassword.getEditText().getText().toString().length() < 6){
 
-                    Toast.makeText(RegisterActivity.this, "Password must have at least 6 characters", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.short_password, Toast.LENGTH_SHORT).show();
 
                 } else{
 
-                    Toast.makeText(RegisterActivity.this, "Welcome "+textInputName.getEditText().getText().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, getString(R.string.welcome)+textInputName.getEditText().getText().toString(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     finish();
                 }
