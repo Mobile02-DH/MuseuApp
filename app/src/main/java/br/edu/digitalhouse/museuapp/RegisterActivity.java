@@ -51,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 } else{
 
-                    Toast.makeText(RegisterActivity.this, getString(R.string.welcome)+textInputName.getEditText().getText().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, getString(R.string.welcome)+" "+textInputName.getEditText().getText().toString(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     finish();
                 }

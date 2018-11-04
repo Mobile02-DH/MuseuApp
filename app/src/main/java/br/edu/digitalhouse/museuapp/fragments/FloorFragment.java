@@ -1,6 +1,7 @@
 package br.edu.digitalhouse.museuapp.fragments;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,9 +22,14 @@ public class FloorFragment extends Fragment {
     private List<Gallery> galleries = new ArrayList<>();
     private RecyclerView recyclerView;
     private FloorRecyclerViewAdapter adapter;
-
+    private String floor;
 
     public FloorFragment() {
+    }
+
+    @SuppressLint("ValidFragment")
+    public FloorFragment(String floor) {
+        this.floor = floor;
     }
 
 
@@ -32,6 +38,10 @@ public class FloorFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_floor, container, false);
+
+        for (int i=0; i<9; i++){
+            galleries.add(new Gallery(getString(R.string.example_room_number), 11, 11, "foo", 11, getString(R.string.example_room_name), getString(R.string.example_room_category), 11));
+        }
 
         adapter = new FloorRecyclerViewAdapter(galleries);
 

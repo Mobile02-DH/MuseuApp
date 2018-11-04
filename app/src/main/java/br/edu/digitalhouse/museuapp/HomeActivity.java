@@ -112,9 +112,9 @@ public class HomeActivity extends AppCompatActivity
     private List<Fragment> getDetailsFragmentList() {
         List<Fragment> fragments = new ArrayList<>();
 
-        fragments.add(new FloorFragment());
-        fragments.add(new FloorFragment());
-        fragments.add(new FloorFragment());
+        fragments.add(new FloorFragment("floor1"));
+        fragments.add(new FloorFragment("floor2"));
+        fragments.add(new FloorFragment("floor3"));
 
         return fragments;
     }
