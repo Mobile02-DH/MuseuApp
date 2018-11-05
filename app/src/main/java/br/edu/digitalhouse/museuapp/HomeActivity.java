@@ -39,7 +39,8 @@ public class HomeActivity extends AppCompatActivity
     private FloatingActionButton fab;
     private FloorListPageAdapter floorListPageAdapter = new FloorListPageAdapter(getSupportFragmentManager(), getDetailsFragmentList());
     private FloorMapPageAdapter floorMapPageAdapter = new FloorMapPageAdapter(getSupportFragmentManager(), getMapsFragmentList());
-    private ImageView userImage;
+    private LinearLayout menuHeader;
+    View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +56,7 @@ public class HomeActivity extends AppCompatActivity
         viewPager.setAdapter(floorListPageAdapter);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*userImage = findViewById(R.id.img_user_profile);
-        setLoginClickListener(userImage);*/
+        setLoginClickListener(menuHeader);
     }
 
     private void setLoginClickListener(View view){
@@ -107,14 +107,18 @@ public class HomeActivity extends AppCompatActivity
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.container);
         fab = findViewById(R.id.fab);
+
+        headerView = navigationView.getHeaderView(0);
+        menuHeader = headerView.findViewById(R.id.drawer_menu_header);
     }
 
     private List<Fragment> getDetailsFragmentList() {
         List<Fragment> fragments = new ArrayList<>();
 
-        fragments.add(new FloorFragment("floor1"));
-        fragments.add(new FloorFragment("floor2"));
-        fragments.add(new FloorFragment("floor3"));
+        fragments.add(FloorFragment.newInstance("floor1"));
+        fragments.add(FloorFragment.newInstance("floor2"));
+        fragments.add(FloorFragment.newInstance("floor3"));
+
 
         return fragments;
     }

@@ -1,7 +1,6 @@
 package br.edu.digitalhouse.museuapp.fragments;
 
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,16 +21,19 @@ public class FloorFragment extends Fragment {
     private List<Gallery> galleries = new ArrayList<>();
     private RecyclerView recyclerView;
     private FloorRecyclerViewAdapter adapter;
-    private String floor;
 
     public FloorFragment() {
     }
 
-    @SuppressLint("ValidFragment")
-    public FloorFragment(String floor) {
-        this.floor = floor;
-    }
+    public static FloorFragment newInstance(String floor) {
 
+        Bundle args = new Bundle();
+        args.putString("floor", floor);
+
+        FloorFragment fragment = new FloorFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,7 +41,7 @@ public class FloorFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_floor, container, false);
 
-        for (int i=0; i<9; i++){
+        for (int i = 0; i < 9; i++) {
             galleries.add(new Gallery(getString(R.string.example_room_number), 11, 11, "foo", 11, getString(R.string.example_room_name), getString(R.string.example_room_category), 11));
         }
 
@@ -48,6 +50,8 @@ public class FloorFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view_floors_id);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        String floor = getArguments().getString("floor");
 
         return view;
     }
