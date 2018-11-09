@@ -28,17 +28,17 @@
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FLOOR 1"/>
+                android:text="@string/floor_1"/>
 
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FLOOR 2"/>
+                android:text="@string/floor_2"/>
 
             <android.support.design.widget.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FLOOR 3"/>
+                android:text="@string/floor_3"/>
 
         </android.support.design.widget.TabLayout>
 

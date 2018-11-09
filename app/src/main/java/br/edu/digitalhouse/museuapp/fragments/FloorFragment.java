@@ -22,10 +22,18 @@ public class FloorFragment extends Fragment {
     private RecyclerView recyclerView;
     private FloorRecyclerViewAdapter adapter;
 
-
     public FloorFragment() {
     }
 
+    public static FloorFragment newInstance(String floor) {
+
+        Bundle args = new Bundle();
+        args.putString("floor", floor);
+
+        FloorFragment fragment = new FloorFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,11 +41,17 @@ public class FloorFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_floor, container, false);
 
+        for (int i = 0; i < 9; i++) {
+            galleries.add(new Gallery(getString(R.string.example_room_number), 11, 11, "foo", 11, getString(R.string.example_room_name), getString(R.string.example_room_category), 11));
+        }
+
         adapter = new FloorRecyclerViewAdapter(galleries);
 
         recyclerView = view.findViewById(R.id.recycler_view_floors_id);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        String floor = getArguments().getString("floor");
 
         return view;
     }

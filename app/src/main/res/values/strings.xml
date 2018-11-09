@@ -7,7 +7,34 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="submenu_title">More</string>
+    <string name="share">Share</string>
+    <string name="personal_gallery">Personal Gallery</string>
+    <string name="_3rd_floor">3rd Floor</string>
+    <string name="_2nd_floor">2nd Floor</string>
+    <string name="_1st_floor">1st Floor</string>
+    <string name="example_room_number">2340</string>
+    <string name="example_room_name">The Silver Cabinet: Art and Ritual, 1600–1850</string>
+    <string name="example_room_category">European and American Art, 17th–19th century</string>
+    <string name="floor_1">FLOOR 1</string>
+    <string name="floor_2">FLOOR 2</string>
+    <string name="floor_3">FLOOR 3</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="register_now">Register now</string>
+    <string name="log_in">log in</string>
+    <string name="or">OR</string>
+    <string name="login_with_facebook">login with facebook</string>
+    <string name="login_with_google">login with google</string>
+    <string name="fill_all_fields">Please fill all the required fields</string>
+    <string name="invalid_email">Invalid e-mail address</string>
+    <string name="passwords_no_match">Passwords do not match</string>
+    <string name="short_password">Password must have at least 6 characters</string>
+    <string name="welcome">Welcome</string>
+    <string name="invalid_credentials">Invalid e-mail or password</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
