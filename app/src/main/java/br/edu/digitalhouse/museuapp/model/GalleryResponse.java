@@ -9,22 +9,22 @@ public class GalleryResponse {
 
     @SerializedName("info")
     @Expose
-    private GalleryResponse info;
+    private GalleryResults info;
 
     @SerializedName("records")
     @Expose
     private List<Gallery> records;
 
-    public GalleryResponse(GalleryResponse info, List<Gallery> records) {
+    public GalleryResponse(GalleryResults info, List<Gallery> records) {
         this.info = info;
         this.records = records;
     }
 
-    public GalleryResponse getInfo() {
+    public GalleryResults getInfo() {
         return info;
     }
 
-    public void setInfo(GalleryResponse info) {
+    public void setInfo(GalleryResults info) {
         this.info = info;
     }
 

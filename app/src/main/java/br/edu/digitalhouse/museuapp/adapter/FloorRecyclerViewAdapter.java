@@ -57,8 +57,9 @@ public class FloorRecyclerViewAdapter extends RecyclerView.Adapter<FloorRecycler
 
         public void bind(final Gallery gallery){
             roomNumber.setText(gallery.getGalleryNumber());
-            roomName.setText(gallery.getName());
-            category.setText(gallery.getTheme());
+            roomName.setText(gallery.getTheme());
+            category.setText(gallery.getName());
+
         }
     }
 }

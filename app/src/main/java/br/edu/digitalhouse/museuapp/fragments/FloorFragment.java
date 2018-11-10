@@ -8,16 +8,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.digitalhouse.museuapp.Interfaces.ServiceListener;
 import br.edu.digitalhouse.museuapp.R;
 import br.edu.digitalhouse.museuapp.adapter.FloorRecyclerViewAdapter;
 import br.edu.digitalhouse.museuapp.model.Gallery;
+import br.edu.digitalhouse.museuapp.model.GalleryResponse;
+import br.edu.digitalhouse.museuapp.model.dao.GalleriesDao;
 
-public class FloorFragment extends Fragment {
+public class FloorFragment extends Fragment implements ServiceListener {
 
+    private GalleryResponse galleryResponse;
     private List<Gallery> galleries = new ArrayList<>();
     private RecyclerView recyclerView;
     private FloorRecyclerViewAdapter adapter;
@@ -25,10 +30,10 @@ public class FloorFragment extends Fragment {
     public FloorFragment() {
     }
 
-    public static FloorFragment newInstance(String floor) {
+    public static FloorFragment newInstance(int floor) {
 
         Bundle args = new Bundle();
-        args.putString("floor", floor);
+        args.putInt("floor", floor);
 
         FloorFragment fragment = new FloorFragment();
         fragment.setArguments(args);
@@ -41,9 +46,14 @@ public class FloorFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_floor, container, false);
 
-        for (int i = 0; i < 9; i++) {
+        GalleriesDao galleriesDao = new GalleriesDao();
+
+       /* for (int i = 0; i < 9; i++) {
             galleries.add(new Gallery(getString(R.string.example_room_number), 11, 11, "foo", 11, getString(R.string.example_room_name), getString(R.string.example_room_category), 11));
-        }
+        }*/
+
+        int floor = getArguments().getInt("floor");
+        galleriesDao.getGalleries(getContext(), this, floor);
 
         adapter = new FloorRecyclerViewAdapter(galleries);
 
@@ -51,9 +61,17 @@ public class FloorFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        String floor = getArguments().getString("floor");
-
         return view;
     }
 
+    @Override
+    public void onSucess(Object object) {
+        galleryResponse = (GalleryResponse) object;
+        galleries = galleryResponse.getRecords();
+    }
+
+    @Override
+    public void onError(Throwable throwable) {
+        Toast.makeText(getContext(), "Error: "+ throwable.getMessage(), Toast.LENGTH_SHORT).show();
+    }
 }

@@ -115,9 +115,9 @@ public class HomeActivity extends AppCompatActivity
     private List<Fragment> getDetailsFragmentList() {
         List<Fragment> fragments = new ArrayList<>();
 
-        fragments.add(FloorFragment.newInstance("floor1"));
-        fragments.add(FloorFragment.newInstance("floor2"));
-        fragments.add(FloorFragment.newInstance("floor3"));
+        fragments.add(FloorFragment.newInstance(1));
+        fragments.add(FloorFragment.newInstance(2));
+        fragments.add(FloorFragment.newInstance(3));
 
 
         return fragments;
