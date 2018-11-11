@@ -46,7 +46,7 @@ public class GalleriesDao {
 
     private void getNetworkData(final ServiceListener listener, int floor, int page) {
 
-        Call<GalleryResponse> call = RetrofitService.getApiService().getFloor(floor, API_KEY, page);
+        Call<GalleryResponse> call = RetrofitService.getApiService().getFloor(floor, page, API_KEY);
 
         call.enqueue(new Callback<GalleryResponse>() {
             @Override

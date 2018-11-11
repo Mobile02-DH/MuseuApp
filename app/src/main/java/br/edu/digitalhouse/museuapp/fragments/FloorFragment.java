@@ -26,7 +26,7 @@ public class FloorFragment extends Fragment implements ServiceListener {
     private List<Gallery> galleries = new ArrayList<>();
     private RecyclerView recyclerView;
     private FloorRecyclerViewAdapter adapter;
-    private int totalPages=1;
+    private int totalPages = 1;
     private int page = 1;
     private GalleriesDao galleriesDao = new GalleriesDao();
     private int floor;
@@ -74,7 +74,9 @@ public class FloorFragment extends Fragment implements ServiceListener {
             totalPages = galleryResponse.getInfo().getPages();
             galleries.addAll(galleryResponse.getRecords());
             page++;
-            galleriesDao.getGalleries(getContext(), this, floor, page);
+            if (page <= totalPages) {
+                galleriesDao.getGalleries(getContext(), this, floor, page);
+            }
         }
     }
 
