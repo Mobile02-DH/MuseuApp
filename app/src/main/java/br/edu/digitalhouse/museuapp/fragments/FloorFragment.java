@@ -26,6 +26,10 @@ public class FloorFragment extends Fragment implements ServiceListener {
     private List<Gallery> galleries = new ArrayList<>();
     private RecyclerView recyclerView;
     private FloorRecyclerViewAdapter adapter;
+    private int totalPages=1;
+    private int page = 1;
+    private GalleriesDao galleriesDao = new GalleriesDao();
+    private int floor;
 
     public FloorFragment() {
     }
@@ -46,14 +50,13 @@ public class FloorFragment extends Fragment implements ServiceListener {
 
         View view = inflater.inflate(R.layout.fragment_floor, container, false);
 
-        GalleriesDao galleriesDao = new GalleriesDao();
-
        /* for (int i = 0; i < 9; i++) {
             galleries.add(new Gallery(getString(R.string.example_room_number), 11, 11, "foo", 11, getString(R.string.example_room_name), getString(R.string.example_room_category), 11));
         }*/
 
-        int floor = getArguments().getInt("floor");
-        galleriesDao.getGalleries(getContext(), this, floor);
+        floor = getArguments().getInt("floor");
+
+        galleriesDao.getGalleries(getContext(), this, floor, page);
 
         adapter = new FloorRecyclerViewAdapter(galleries);
 
@@ -66,12 +69,17 @@ public class FloorFragment extends Fragment implements ServiceListener {
 
     @Override
     public void onSucess(Object object) {
-        galleryResponse = (GalleryResponse) object;
-        galleries = galleryResponse.getRecords();
+        while (page <= totalPages) {
+            galleryResponse = (GalleryResponse) object;
+            totalPages = galleryResponse.getInfo().getPages();
+            galleries.addAll(galleryResponse.getRecords());
+            page++;
+            galleriesDao.getGalleries(getContext(), this, floor, page);
+        }
     }
 
     @Override
     public void onError(Throwable throwable) {
-        Toast.makeText(getContext(), "Error: "+ throwable.getMessage(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Error: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
     }
 }

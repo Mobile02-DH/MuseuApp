@@ -17,89 +17,52 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import br.edu.digitalhouse.museuapp.Interfaces.ServiceListener;
+import br.edu.digitalhouse.museuapp.model.Gallery;
 import br.edu.digitalhouse.museuapp.model.GalleryResponse;
 import br.edu.digitalhouse.museuapp.model.dao.network.RetrofitService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import br.edu.digitalhouse.museuapp.Interfaces.ServiceListener;
-import br.edu.digitalhouse.museuapp.model.Gallery;
-
 public class GalleriesDao {
 
-    public void getGalleries(Context context, final ServiceListener listener, int floor) {
+    private static final String API_KEY = "72bb9540-dd48-11e8-a147-6bd212908941";
+
+    public void getGalleries(Context context, final ServiceListener listener, int floor, int page) {
 
         List<Gallery> galleryList = new ArrayList<>();
 
-        if (isConnected(context)){
+        if (isConnected(context)) {
 
-            getNetworkData(listener, floor);
+            getNetworkData(listener, floor, page);
 
-        }else {
+        } else {
 
             Toast.makeText(context, "No connection", Toast.LENGTH_SHORT).show();
             /*getLocalData(context, listener, galleryList);*/
         }
     }
 
-    private void getNetworkData(final ServiceListener listener, int floor) {
+    private void getNetworkData(final ServiceListener listener, int floor, int page) {
 
-        if (floor == 1) {
-            Call<GalleryResponse> call = RetrofitService.getApiService().getFloor1();
+        Call<GalleryResponse> call = RetrofitService.getApiService().getFloor(floor, API_KEY, page);
 
-            call.enqueue(new Callback<GalleryResponse>() {
-                @Override
-                public void onResponse(Call<GalleryResponse> call, Response<GalleryResponse> response) {
-                    if(response.body() != null){
-                        listener.onSucess(response.body());
-                    }
+        call.enqueue(new Callback<GalleryResponse>() {
+            @Override
+            public void onResponse(Call<GalleryResponse> call, Response<GalleryResponse> response) {
+                if (response.body() != null) {
+                    listener.onSucess(response.body());
                 }
+            }
 
-                @Override
-                public void onFailure(Call<GalleryResponse> call, Throwable t) {
-                    listener.onSucess(t);
+            @Override
+            public void onFailure(Call<GalleryResponse> call, Throwable t) {
+                listener.onSucess(t);
 
-                }
-            });
+            }
+        });
 
-        } else if (floor == 2){
-            Call<GalleryResponse> call = RetrofitService.getApiService().getFloor2();
-
-            call.enqueue(new Callback<GalleryResponse>() {
-                @Override
-                public void onResponse(Call<GalleryResponse> call, Response<GalleryResponse> response) {
-                    if(response.body() != null){
-                        listener.onSucess(response.body());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<GalleryResponse> call, Throwable t) {
-                    listener.onSucess(t);
-
-                }
-            });
-
-        } else if (floor == 3) {
-            Call<GalleryResponse> call = RetrofitService.getApiService().getFloor3();
-
-            call.enqueue(new Callback<GalleryResponse>() {
-                @Override
-                public void onResponse(Call<GalleryResponse> call, Response<GalleryResponse> response) {
-                    if(response.body() != null){
-                        listener.onSucess(response.body());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<GalleryResponse> call, Throwable t) {
-                    listener.onSucess(t);
-
-                }
-            });
-
-        }
     }
 
     private void getLocalData(Context context, ServiceListener listener, List<Gallery> galleryList) {
