@@ -40,6 +40,15 @@ public class FloorRecyclerViewAdapter extends RecyclerView.Adapter<FloorRecycler
         return galleryList.size();
     }
 
+    public void update(List<Gallery> records) {
+        if (this.galleryList.isEmpty()){
+            this.galleryList = records;
+        }else {
+            this.galleryList.addAll(records);
+        }
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder{
 
         private TextView roomNumber;

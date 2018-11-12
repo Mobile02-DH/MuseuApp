@@ -37,8 +37,8 @@ public class HomeActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private FloatingActionButton fab;
-    private FloorListPageAdapter floorListPageAdapter = new FloorListPageAdapter(getSupportFragmentManager(), getDetailsFragmentList());
-    private FloorMapPageAdapter floorMapPageAdapter = new FloorMapPageAdapter(getSupportFragmentManager(), getMapsFragmentList());
+    private FloorListPageAdapter floorListPageAdapter;
+    private FloorMapPageAdapter floorMapPageAdapter;
     private LinearLayout menuHeader;
     View headerView;
 
@@ -51,10 +51,13 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setFabListenerWhenOnListDisplay();
         configureDrawerLayout();
-        configureViewPager();
+
+        floorListPageAdapter =  new FloorListPageAdapter(getSupportFragmentManager(), getDetailsFragmentList());
+        floorMapPageAdapter = new FloorMapPageAdapter(getSupportFragmentManager(), getMapsFragmentList());
 
         viewPager.setAdapter(floorListPageAdapter);
         navigationView.setNavigationItemSelectedListener(this);
+        configureViewPager();
 
         setLoginClickListener(menuHeader);
     }

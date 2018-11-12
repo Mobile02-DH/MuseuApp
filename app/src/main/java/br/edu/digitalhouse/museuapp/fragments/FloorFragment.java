@@ -58,7 +58,7 @@ public class FloorFragment extends Fragment implements ServiceListener {
 
         galleriesDao.getGalleries(getContext(), this, floor, page);
 
-        adapter = new FloorRecyclerViewAdapter(galleries);
+        adapter = new FloorRecyclerViewAdapter(new ArrayList());
 
         recyclerView = view.findViewById(R.id.recycler_view_floors_id);
         recyclerView.setAdapter(adapter);
@@ -72,7 +72,7 @@ public class FloorFragment extends Fragment implements ServiceListener {
         while (page <= totalPages) {
             galleryResponse = (GalleryResponse) object;
             totalPages = galleryResponse.getInfo().getPages();
-            galleries.addAll(galleryResponse.getRecords());
+            adapter.update(galleryResponse.getRecords());
             page++;
             if (page <= totalPages) {
                 galleriesDao.getGalleries(getContext(), this, floor, page);
