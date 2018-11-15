@@ -74,6 +74,7 @@ public class HomeActivity extends AppCompatActivity
     private void configureViewPager() {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+        viewPager.setOffscreenPageLimit(floorListPageAdapter.getCount());
     }
 
     private void configureDrawerLayout() {
@@ -88,6 +89,7 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 viewPager.setAdapter(floorMapPageAdapter);
+                viewPager.setOffscreenPageLimit(floorMapPageAdapter.getCount());
                 setFabListenerWhenOnMapDisplay();
             }
         });
