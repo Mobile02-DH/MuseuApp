@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity
     private FloorListPageAdapter floorListPageAdapter;
     private FloorMapPageAdapter floorMapPageAdapter;
     private LinearLayout menuHeader;
-    View headerView;
+    private View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +51,7 @@ public class HomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setFabListenerWhenOnListDisplay();
         configureDrawerLayout();
-
-        floorListPageAdapter =  new FloorListPageAdapter(getSupportFragmentManager(), getDetailsFragmentList());
-        floorMapPageAdapter = new FloorMapPageAdapter(getSupportFragmentManager(), getMapsFragmentList());
-
-        viewPager.setAdapter(floorListPageAdapter);
-        navigationView.setNavigationItemSelectedListener(this);
         configureViewPager();
-
         setLoginClickListener(menuHeader);
     }
 
@@ -72,6 +65,10 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void configureViewPager() {
+
+        floorListPageAdapter =  new FloorListPageAdapter(getSupportFragmentManager(), getDetailsFragmentList());
+        floorMapPageAdapter = new FloorMapPageAdapter(getSupportFragmentManager(), getMapsFragmentList());
+        viewPager.setAdapter(floorListPageAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.setOffscreenPageLimit(floorListPageAdapter.getCount());
@@ -82,6 +79,7 @@ public class HomeActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     private void setFabListenerWhenOnListDisplay() {

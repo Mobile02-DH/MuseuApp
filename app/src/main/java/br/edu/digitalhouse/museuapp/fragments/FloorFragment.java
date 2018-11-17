@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.digitalhouse.museuapp.Interfaces.ListClickListener;
 import br.edu.digitalhouse.museuapp.Interfaces.ServiceListener;
 import br.edu.digitalhouse.museuapp.R;
 import br.edu.digitalhouse.museuapp.adapter.FloorRecyclerViewAdapter;
@@ -58,9 +59,15 @@ public class FloorFragment extends Fragment implements ServiceListener {
 
         galleriesDao.getGalleries(getContext(), this, floor, page);
 
-        adapter = new FloorRecyclerViewAdapter(new ArrayList());
+        adapter = new FloorRecyclerViewAdapter(new ArrayList<Gallery>(), new ListClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getContext(), "Galeria: "+ adapter.getGalleryList().get(position).getGalleryNumber(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         recyclerView = view.findViewById(R.id.recycler_view_floors_id);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
