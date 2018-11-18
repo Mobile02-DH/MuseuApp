@@ -10,29 +10,29 @@ import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private TextInputLayout textInputName;
+    private TextInputLayout textInputFirstName;
+    private TextInputLayout textInputLastName;
     private TextInputLayout textInputEmail;
     private TextInputLayout textInputPassword;
-    private TextInputLayout textInputRepeatePassword;
-    private Button btnRegisterNow;
+    private Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        textInputName = findViewById(R.id.text_input_name);
-        textInputEmail = findViewById(R.id.text_input_email);
-        textInputPassword = findViewById(R.id.text_input_password);
-        textInputRepeatePassword = findViewById(R.id.text_input_repeate_password);
-        btnRegisterNow = findViewById(R.id.btn_register_now);
+        textInputFirstName = findViewById(R.id.txt_first_name);
+        textInputLastName = findViewById(R.id.txt_last_name);
+        textInputEmail = findViewById(R.id.txt_email_register);
+        textInputPassword = findViewById(R.id.txt_password_register);
+        btnRegister = findViewById(R.id.btn_register);
 
-        btnRegisterNow.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (textInputName.getEditText().getText().toString().isEmpty()||
+                if (textInputFirstName.getEditText().getText().toString().isEmpty()||
+                        textInputLastName.getEditText().getText().toString().isEmpty()||
                         textInputEmail.getEditText().getText().toString().isEmpty()||
-                        textInputPassword.getEditText().getText().toString().isEmpty()||
-                        textInputRepeatePassword.getEditText().getText().toString().isEmpty()){
+                        textInputPassword.getEditText().getText().toString().isEmpty()){
 
                     Toast.makeText(RegisterActivity.this, R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
 
@@ -40,18 +40,13 @@ public class RegisterActivity extends AppCompatActivity {
 
                     Toast.makeText(RegisterActivity.this, R.string.invalid_email, Toast.LENGTH_SHORT).show();
 
-                } else if (!(textInputPassword.getEditText().getText().toString().equals(
-                        textInputRepeatePassword.getEditText().getText().toString()))){
-
-                    Toast.makeText(RegisterActivity.this, R.string.passwords_no_match, Toast.LENGTH_SHORT).show();
-
                 } else if (textInputPassword.getEditText().getText().toString().length() < 6){
 
                     Toast.makeText(RegisterActivity.this, R.string.short_password, Toast.LENGTH_SHORT).show();
 
                 } else{
 
-                    Toast.makeText(RegisterActivity.this, getString(R.string.welcome)+" "+textInputName.getEditText().getText().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, getString(R.string.welcome)+" "+textInputFirstName.getEditText().getText().toString(), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     finish();
                 }
