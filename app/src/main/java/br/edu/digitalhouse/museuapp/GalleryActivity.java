@@ -31,7 +31,7 @@ public class GalleryActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         galleryInfoFragment = GalleryInfoFragment.newInstance(intent.getExtras());
-        galleryItemListFragment = new GalleryItemListFragment();
+        galleryItemListFragment = GalleryItemListFragment.newInstance(intent.getExtras());
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, galleryInfoFragment);

@@ -2,16 +2,19 @@ package br.edu.digitalhouse.museuapp.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import br.edu.digitalhouse.museuapp.GalleryActivity;
 import br.edu.digitalhouse.museuapp.Interfaces.ListClickListener;
 import br.edu.digitalhouse.museuapp.R;
 import br.edu.digitalhouse.museuapp.model.galleryrequest.Item;
@@ -80,8 +83,13 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
 
         public void bind(final Item item){
 
-            Picasso.get().load(item.getImages().get(0).getImageUrl()).into(imageSample);
-            textName.setText(item.getTitle());
+            try {
+                Picasso.get().load(item.getImages().get(0).getImageUrl()).into(imageSample);
+                textName.setText(item.getTitle());
+
+            }catch (Exception e){
+                Log.d("TESTE DE RETORNO", "RETORNOU VAZIA");
+            }
 
         }
 
