@@ -1,4 +1,4 @@
-package br.edu.digitalhouse.museuapp.model;
+package br.edu.digitalhouse.museuapp.model.floorrequest;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,6 +12,10 @@ public class Gallery {
     @SerializedName("objectcount")
     @Expose
     private int objectCount;
+
+    @SerializedName("labeltext")
+    @Expose
+    private String labelText;
 
     @SerializedName("id")
     @Expose
@@ -37,9 +41,10 @@ public class Gallery {
     @Expose
     private int galleryId;
 
-    public Gallery(String galleryNumber, int objectCount, int id, String lastUpdate, int floor, String name, String theme, int galleryId) {
+    public Gallery(String galleryNumber, int objectCount, String labelText, int id, String lastUpdate, int floor, String name, String theme, int galleryId) {
         this.galleryNumber = galleryNumber;
         this.objectCount = objectCount;
+        this.labelText = labelText;
         this.id = id;
         this.lastUpdate = lastUpdate;
         this.floor = floor;
@@ -110,5 +115,13 @@ public class Gallery {
 
     public void setGalleryId(int galleryId) {
         this.galleryId = galleryId;
+    }
+
+    public String getLabelText() {
+        return labelText;
+    }
+
+    public void setLabelText(String labelText) {
+        this.labelText = labelText;
     }
 }

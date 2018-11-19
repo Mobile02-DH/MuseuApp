@@ -18,46 +18,44 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.edu.digitalhouse.museuapp.Interfaces.ServiceListener;
-import br.edu.digitalhouse.museuapp.model.Gallery;
-import br.edu.digitalhouse.museuapp.model.GalleryResponse;
 import br.edu.digitalhouse.museuapp.model.dao.network.RetrofitService;
+import br.edu.digitalhouse.museuapp.model.galleryrequest.Item;
+import br.edu.digitalhouse.museuapp.model.galleryrequest.ItemResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GalleriesDao {
+public class GalleryDao {
 
-    private static final String API_KEY = "72bb9540-dd48-11e8-a147-6bd212908941";
+    public void getItems(Context context, final ServiceListener listener, String gallery) {
 
-    public void getGalleries(Context context, final ServiceListener listener, int floor, int page) {
-
-        List<Gallery> galleryList = new ArrayList<>();
+        List<Item> itemList = new ArrayList<>();
 
         if (isConnected(context)) {
 
-            getNetworkData(listener, floor, page);
+            getNetworkData(listener, gallery, 100);
 
         } else {
 
             Toast.makeText(context, "No connection", Toast.LENGTH_SHORT).show();
-            /*getLocalData(context, listener, galleryList);*/
+            /*getLocalData(context, listener, itemList);*/
         }
     }
 
-    private void getNetworkData(final ServiceListener listener, int floor, int page) {
+    private void getNetworkData(final ServiceListener listener, String gallery, int recordsPerQuery) {
 
-        Call<GalleryResponse> call = RetrofitService.getApiService().getFloor(floor, page, API_KEY);
+        Call<ItemResponse> call = RetrofitService.getApiService().getGallery(gallery, recordsPerQuery, RetrofitService.API_KEY);
 
-        call.enqueue(new Callback<GalleryResponse>() {
+        call.enqueue(new Callback<ItemResponse>() {
             @Override
-            public void onResponse(Call<GalleryResponse> call, Response<GalleryResponse> response) {
+            public void onResponse(Call<ItemResponse> call, Response<ItemResponse> response) {
                 if (response.body() != null) {
                     listener.onSucess(response.body());
                 }
             }
 
             @Override
-            public void onFailure(Call<GalleryResponse> call, Throwable t) {
+            public void onFailure(Call<ItemResponse> call, Throwable t) {
                 listener.onSucess(t);
 
             }
@@ -65,22 +63,22 @@ public class GalleriesDao {
 
     }
 
-    private void getLocalData(Context context, ServiceListener listener, List<Gallery> galleryList) {
+    private void getLocalData(Context context, ServiceListener listener, List<Item> itemList) {
         try {
             AssetManager manager = context.getAssets();
-            InputStream galleriesJson = manager.open("galleries.json");
-            BufferedReader bufferReaderIn = new BufferedReader(new InputStreamReader(galleriesJson));
+            InputStream itemsJson = manager.open("items.json");
+            BufferedReader bufferReaderIn = new BufferedReader(new InputStreamReader(itemsJson));
 
             Gson gson = new Gson();
 
-            Gallery[] postArray = gson.fromJson(bufferReaderIn, Gallery[].class);
+            Item[] itemArray = gson.fromJson(bufferReaderIn, Item[].class);
 
-            galleryList.addAll(Arrays.asList(postArray));
+            itemList.addAll(Arrays.asList(itemArray));
 
-            listener.onSucess(galleryList);
+            listener.onSucess(itemList);
 
         } catch (IOException exception) {
-            Log.e("JSON", "ERRO AO LER ARQUIVO galleries.json");
+            Log.e("JSON", "ERRO AO LER ARQUIVO items.json");
             listener.onError(exception);
         }
     }
@@ -97,5 +95,4 @@ public class GalleriesDao {
         }
         return false;
     }
-
 }

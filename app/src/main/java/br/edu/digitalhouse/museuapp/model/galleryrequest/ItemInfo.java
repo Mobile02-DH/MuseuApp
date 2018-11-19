@@ -1,17 +1,17 @@
-package br.edu.digitalhouse.museuapp.model;
+package br.edu.digitalhouse.museuapp.model.galleryrequest;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GalleryResults {
+public class ItemInfo {
 
     @SerializedName("totalrecordsperquery")
     @Expose
-    private int TotalRecordsPerQuery;
+    private int totalRecordsPerQuery;
 
     @SerializedName("totalrecords")
     @Expose
-    private int TotalRecords;
+    private int totalRecords;
 
     @SerializedName("pages")
     @Expose
@@ -21,27 +21,27 @@ public class GalleryResults {
     @Expose
     private int page;
 
-    public GalleryResults(int totalRecordsPerQuery, int totalRecords, int pages, int page) {
-        TotalRecordsPerQuery = totalRecordsPerQuery;
-        TotalRecords = totalRecords;
+    public ItemInfo(int totalRecordsPerQuery, int totalRecords, int pages, int page) {
+        this.totalRecordsPerQuery = totalRecordsPerQuery;
+        this.totalRecords = totalRecords;
         this.pages = pages;
         this.page = page;
     }
 
     public int getTotalRecordsPerQuery() {
-        return TotalRecordsPerQuery;
+        return totalRecordsPerQuery;
     }
 
     public void setTotalRecordsPerQuery(int totalRecordsPerQuery) {
-        TotalRecordsPerQuery = totalRecordsPerQuery;
+        this.totalRecordsPerQuery = totalRecordsPerQuery;
     }
 
     public int getTotalRecords() {
-        return TotalRecords;
+        return totalRecords;
     }
 
     public void setTotalRecords(int totalRecords) {
-        TotalRecords = totalRecords;
+        this.totalRecords = totalRecords;
     }
 
     public int getPages() {

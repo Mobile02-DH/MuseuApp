@@ -15,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitService {
 
     private static final String BASE_URL = "https://api.harvardartmuseums.org/";
+    public static final String API_KEY = "72bb9540-dd48-11e8-a147-6bd212908941";
     private static Retrofit retrofit;
 
 

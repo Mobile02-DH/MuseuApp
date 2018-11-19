@@ -1,6 +1,7 @@
 package br.edu.digitalhouse.museuapp.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,23 +14,23 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.edu.digitalhouse.museuapp.GalleryActivity;
 import br.edu.digitalhouse.museuapp.Interfaces.ListClickListener;
 import br.edu.digitalhouse.museuapp.Interfaces.ServiceListener;
 import br.edu.digitalhouse.museuapp.R;
 import br.edu.digitalhouse.museuapp.adapter.FloorRecyclerViewAdapter;
-import br.edu.digitalhouse.museuapp.model.Gallery;
-import br.edu.digitalhouse.museuapp.model.GalleryResponse;
-import br.edu.digitalhouse.museuapp.model.dao.GalleriesDao;
+import br.edu.digitalhouse.museuapp.model.floorrequest.Gallery;
+import br.edu.digitalhouse.museuapp.model.floorrequest.GalleryResponse;
+import br.edu.digitalhouse.museuapp.model.dao.FloorDao;
 
 public class FloorFragment extends Fragment implements ServiceListener {
 
     private GalleryResponse galleryResponse;
-    private List<Gallery> galleries = new ArrayList<>();
     private RecyclerView recyclerView;
     private FloorRecyclerViewAdapter adapter;
     private int totalPages = 1;
     private int page = 1;
-    private GalleriesDao galleriesDao = new GalleriesDao();
+    private FloorDao floorDao = new FloorDao();
     private int floor;
 
     public FloorFragment() {
@@ -57,12 +58,20 @@ public class FloorFragment extends Fragment implements ServiceListener {
 
         floor = getArguments().getInt("floor");
 
-        galleriesDao.getGalleries(getContext(), this, floor, page);
+        floorDao.getGalleries(getContext(), this, floor, page);
 
         adapter = new FloorRecyclerViewAdapter(new ArrayList<Gallery>(), new ListClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Toast.makeText(getContext(), "Galeria: "+ adapter.getGalleryList().get(position).getGalleryNumber(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), GalleryActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("number", adapter.getGalleryList().get(position).getGalleryNumber());
+                bundle.putString("name", adapter.getGalleryList().get(position).getTheme());
+                bundle.putString("category", adapter.getGalleryList().get(position).getName());
+                bundle.putString("description", adapter.getGalleryList().get(position).getLabelText());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
@@ -82,7 +91,7 @@ public class FloorFragment extends Fragment implements ServiceListener {
             adapter.update(galleryResponse.getRecords());
             page++;
             if (page <= totalPages) {
-                galleriesDao.getGalleries(getContext(), this, floor, page);
+                floorDao.getGalleries(getContext(), this, floor, page);
             }
         }
     }

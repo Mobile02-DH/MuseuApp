@@ -11,7 +11,7 @@ import java.util.List;
 
 import br.edu.digitalhouse.museuapp.Interfaces.ListClickListener;
 import br.edu.digitalhouse.museuapp.R;
-import br.edu.digitalhouse.museuapp.model.Gallery;
+import br.edu.digitalhouse.museuapp.model.floorrequest.Gallery;
 
 public class FloorRecyclerViewAdapter extends RecyclerView.Adapter<FloorRecyclerViewAdapter.ViewHolder> {
 
