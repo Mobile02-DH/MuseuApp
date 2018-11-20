@@ -3,7 +3,7 @@
     android:id="@+id/imageview_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="@color/white"
-    android:scaleType="center"
+    android:padding="16dp"
+    android:scaleType="fitCenter"
     android:src="@drawable/splashscreen" />

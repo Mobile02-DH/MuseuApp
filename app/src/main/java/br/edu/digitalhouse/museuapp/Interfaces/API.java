@@ -11,8 +11,8 @@ public interface API {
     @GET("gallery")
     Call<GalleryResponse> getFloor(
             @Query("floor") int floor,
-            @Query("page") int page,
-            @Query("apikey") String apikey
+            @Query("size") int recordsPerQuery,
+            @Query("apikey") String apiKey
     );
 
     @GET("object")

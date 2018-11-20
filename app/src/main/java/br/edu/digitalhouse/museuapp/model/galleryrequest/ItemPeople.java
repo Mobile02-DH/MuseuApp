@@ -3,7 +3,9 @@ package br.edu.digitalhouse.museuapp.model.galleryrequest;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ItemPeople {
+import java.io.Serializable;
+
+public class ItemPeople implements Serializable {
 
     @SerializedName("name")
     @Expose

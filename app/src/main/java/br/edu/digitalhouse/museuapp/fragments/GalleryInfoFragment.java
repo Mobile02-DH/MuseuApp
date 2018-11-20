@@ -41,9 +41,20 @@ public class GalleryInfoFragment extends Fragment {
         description = view.findViewById(R.id.gallery_description);
 
         number.setText("Room "+ getArguments().getString("number"));
-        name.setText(getArguments().getString("name"));
-        category.setText(getArguments().getString("category"));
-        description.setText(getArguments().getString("description"));
+
+        if (getArguments().getString("name") != null){
+            name.setText(getArguments().getString("name"));
+            category.setText(getArguments().getString("category"));
+        } else {
+            name.setText(getArguments().getString("category"));
+            category.setText(getArguments().getString("name"));
+        }
+
+        if (getArguments().getString("description") != null){
+            description.setText(getArguments().getString("description"));
+        } else {
+            description.setText("No description available.");
+        }
 
         return view;
     }

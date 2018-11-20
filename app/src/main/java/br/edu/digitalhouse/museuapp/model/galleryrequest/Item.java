@@ -3,46 +3,57 @@ package br.edu.digitalhouse.museuapp.model.galleryrequest;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Item {
+public class Item implements Serializable {
 
+    //list of Artists (Claude Monet)
     @SerializedName("people")
     @Expose
     private List<ItemPeople> people;
 
+    //original date of item (1877)
     @SerializedName("dated")
     @Expose
     private String dated;
 
+    //list of item images (URLs)
     @SerializedName("images")
     @Expose
     private List<ItemImage> images;
 
+    //ID (228649)
     @SerializedName("objectid")
     @Expose
     private int objectId;
 
+    //where it came from (French)
     @SerializedName("culture")
     @Expose
     private String culture;
 
+    //name of the item (The Gare Saint-Lazare: Arrival of a Train)
     @SerializedName("title")
     @Expose
     private String title;
 
+    //category of the item (European and American Art)
     @SerializedName("division")
     @Expose
     private String division;
 
+    //description of the item (This is the largest in Monet’s series of twelve paintings of...)
     @SerializedName("labeltext")
     @Expose
     private String labelText;
 
+    //physical description of the item (Oil on canvas)
     @SerializedName("medium")
     @Expose
     private String medium;
 
+    //what the item is (Paintings)
     @SerializedName("classification")
     @Expose
     private String classification;

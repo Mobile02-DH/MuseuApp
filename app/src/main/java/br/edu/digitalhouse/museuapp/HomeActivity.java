@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -104,12 +103,12 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void initViews(){
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_item);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.container);
-        fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab_item);
 
         headerView = navigationView.getHeaderView(0);
         menuHeader = headerView.findViewById(R.id.drawer_menu_header);

@@ -27,13 +27,13 @@ import retrofit2.Response;
 
 public class FloorDao {
 
-    public void getGalleries(Context context, final ServiceListener listener, int floor, int page) {
+    public void getGalleries(Context context, final ServiceListener listener, int floor) {
 
         List<Gallery> galleryList = new ArrayList<>();
 
         if (isConnected(context)) {
 
-            getNetworkData(listener, floor, page);
+            getNetworkData(listener, floor, 100);
 
         } else {
 
@@ -42,9 +42,9 @@ public class FloorDao {
         }
     }
 
-    private void getNetworkData(final ServiceListener listener, int floor, int page) {
+    private void getNetworkData(final ServiceListener listener, int floor, int recordsPerQuery) {
 
-        Call<GalleryResponse> call = RetrofitService.getApiService().getFloor(floor, page, RetrofitService.API_KEY);
+        Call<GalleryResponse> call = RetrofitService.getApiService().getFloor(floor, recordsPerQuery, RetrofitService.API_KEY);
 
         call.enqueue(new Callback<GalleryResponse>() {
             @Override

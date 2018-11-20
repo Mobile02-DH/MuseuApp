@@ -39,6 +39,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.edu.digitalhouse.museuapp.HomeActivity" />
         </activity>
+        <activity
+            android:name=".ItemActivity"
+            android:label="@string/title_activity_item"
+            android:parentActivityName=".GalleryActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.edu.digitalhouse.museuapp.GalleryActivity" />
+        </activity>
     </application>
 
 </manifest>
