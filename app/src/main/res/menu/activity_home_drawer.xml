@@ -16,19 +16,11 @@
             android:id="@+id/nav_floor_3"
             android:icon="@drawable/ic_menu_floor_3"
             android:title="@string/_3rd_floor" />
+        <item
+            android:id="@+id/nav_myGallery"
+            android:icon="@drawable/ic_menu_my_gallery"
+            android:title="@string/personal_gallery" />
     </group>
 
-    <item android:title="@string/submenu_title">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="@string/share" />
-            <item
-                android:id="@+id/nav_myGallery"
-                android:icon="@drawable/ic_menu_my_gallery"
-                android:title="@string/personal_gallery" />
-        </menu>
-    </item>
 
 </menu>

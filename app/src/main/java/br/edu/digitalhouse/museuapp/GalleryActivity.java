@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import br.edu.digitalhouse.museuapp.fragments.GalleryInfoFragment;
@@ -63,4 +64,22 @@ public class GalleryActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_user_home) {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

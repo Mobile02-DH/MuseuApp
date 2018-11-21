@@ -13,4 +13,5 @@
     <color name="twiter">#00a2f1</color>
     <color name="google">#ce2a15</color>
     <color name="background">#E6E6E6</color>
+    <color name="background_image">#212121</color>
 </resources>

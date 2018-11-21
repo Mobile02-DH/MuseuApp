@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +53,11 @@ public class ItemActivity extends AppCompatActivity {
         adapter = new ItemImageRecyclerViewAdapter(imageList, new ListClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(ItemActivity.this, "Opa!", Toast.LENGTH_SHORT).show();
+                Intent intentOut = new Intent(getApplicationContext(), ImageActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("imageUrl", imageList.get(position).getImageUrl());
+                intentOut.putExtras(bundle);
+                startActivity(intentOut);
             }
         });
 
@@ -103,6 +109,25 @@ public class ItemActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_user_home) {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }

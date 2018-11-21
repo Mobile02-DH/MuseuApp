@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SplashscreenActivity">
+        <activity android:name=".SplashscreenActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,17 +24,13 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:name=".LoginActivity" />
         <activity
-            android:name=".RegisterActivity"
-            android:label="@string/title_activity_register" />
+            android:name=".RegisterActivity" />
         <activity
             android:name=".GalleryActivity"
-            android:label="@string/title_activity_gallery"
             android:parentActivityName=".HomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -41,12 +38,19 @@
         </activity>
         <activity
             android:name=".ItemActivity"
-            android:label="@string/title_activity_item"
             android:parentActivityName=".GalleryActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.edu.digitalhouse.museuapp.GalleryActivity" />
+        </activity>
+        <activity
+            android:name=".ImageActivity"
+            android:parentActivityName=".ItemActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="br.edu.digitalhouse.museuapp.ItemActivity" />
         </activity>
     </application>
 
