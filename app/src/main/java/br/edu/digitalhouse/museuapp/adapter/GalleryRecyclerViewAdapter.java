@@ -85,7 +85,7 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
 
             try {
                 Picasso.get()
-                        .load(item.getImages().get(0).getImageUrl())
+                        .load(item.getImages().get(0).getImageUrl()+"?height=200&width=200")
                         .placeholder(R.drawable.placeholder)
                         .error(R.drawable.placeholder)
                         .into(imageSample);
