@@ -2,61 +2,64 @@ package br.edu.digitalhouse.museuapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private TextInputLayout textInputName;
-    private TextInputLayout textInputEmail;
-    private TextInputLayout textInputPassword;
-    private TextInputLayout textInputRepeatePassword;
-    private Button btnRegisterNow;
+    private TextInputEditText textImputEmail;
+    private TextInputEditText textImputPassword;
+    private TextInputEditText textImputRepeatPassword;
+    private TextView btnRegistra;
+
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        textInputName = findViewById(R.id.text_input_name);
-        textInputEmail = findViewById(R.id.text_input_email);
-        textInputPassword = findViewById(R.id.text_input_password);
-        textInputRepeatePassword = findViewById(R.id.text_input_repeate_password);
-        btnRegisterNow = findViewById(R.id.btn_register_now);
 
-        btnRegisterNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (textInputName.getEditText().getText().toString().isEmpty()||
-                        textInputEmail.getEditText().getText().toString().isEmpty()||
-                        textInputPassword.getEditText().getText().toString().isEmpty()||
-                        textInputRepeatePassword.getEditText().getText().toString().isEmpty()){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Register");
 
-                    Toast.makeText(RegisterActivity.this, R.string.fill_all_fields, Toast.LENGTH_SHORT).show();
+        textImputEmail = findViewById(R.id.txt_email_register);
+        textImputPassword = findViewById(R.id.txt_password_register);
+        textImputRepeatPassword = findViewById(R.id.txt_password_confirm);
+        btnRegistra = findViewById(R.id.btn_register);
 
-                } else if (!(textInputEmail.getEditText().getText().toString().contains("@"))){
+        firebaseAuth = FirebaseAuth.getInstance();
 
-                    Toast.makeText(RegisterActivity.this, R.string.invalid_email, Toast.LENGTH_SHORT).show();
+        btnRegistra.setOnClickListener(v -> {
 
-                } else if (!(textInputPassword.getEditText().getText().toString().equals(
-                        textInputRepeatePassword.getEditText().getText().toString()))){
+            if (textImputEmail.getText().toString().isEmpty() ||
+                    textImputPassword.getText().toString().isEmpty() ||
+                    textImputRepeatPassword.getText().toString().isEmpty()) {
 
-                    Toast.makeText(RegisterActivity.this, R.string.passwords_no_match, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please fill in the required fields", Toast.LENGTH_LONG).show();
 
-                } else if (textInputPassword.getEditText().getText().toString().length() < 6){
+            } else if (!(textImputPassword.getText().toString().equals(textImputRepeatPassword.getText().toString()))) {
 
-                    Toast.makeText(RegisterActivity.this, R.string.short_password, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_LONG).show();
 
-                } else{
+            } else {
 
-                    Toast.makeText(RegisterActivity.this, getString(R.string.welcome)+" "+textInputName.getEditText().getText().toString(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                    finish();
-                }
+                firebaseAuth.createUserWithEmailAndPassword(textImputEmail.getText().toString(), textImputPassword.getText().toString())
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(), "Welcome!", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
-
     }
 }

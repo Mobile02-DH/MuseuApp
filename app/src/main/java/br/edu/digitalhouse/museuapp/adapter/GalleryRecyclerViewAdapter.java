@@ -17,7 +17,7 @@ import br.edu.digitalhouse.museuapp.Interfaces.ListClickListener;
 import br.edu.digitalhouse.museuapp.R;
 import br.edu.digitalhouse.museuapp.model.galleryrequest.Item;
 
-public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecyclerViewAdapter.ViewHolder>{
+public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecyclerViewAdapter.ViewHolder> {
 
     private List<Item> itemList;
     private ListClickListener listener;
@@ -44,7 +44,9 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
 
         Item item = itemList.get(i);
 
-        viewHolder.bind(item);
+        if (item.getImages() != null) {
+            viewHolder.bind(item);
+        }
 
     }
 
@@ -62,7 +64,7 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
         notifyDataSetChanged();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView imageSample;
         private TextView textName;
@@ -79,7 +81,7 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
             textName = itemView.findViewById(R.id.txt_item_list_name);
         }
 
-        public void bind(final Item item){
+        public void bind(final Item item) {
 
             try {
                 Picasso.get()

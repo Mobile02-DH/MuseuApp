@@ -19,6 +19,7 @@ public class GalleryActivity extends AppCompatActivity {
     private GalleryInfoFragment galleryInfoFragment;
     private GalleryItemListFragment galleryItemListFragment;
     private FragmentTransaction fragmentTransaction;
+    private Bundle bundle;
 
 
     @Override
@@ -30,9 +31,10 @@ public class GalleryActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Intent intent = getIntent();
+        bundle = intent.getExtras();
 
-        galleryInfoFragment = GalleryInfoFragment.newInstance(intent.getExtras());
-        galleryItemListFragment = GalleryItemListFragment.newInstance(intent.getExtras());
+        galleryInfoFragment = GalleryInfoFragment.newInstance(bundle);
+        galleryItemListFragment = GalleryItemListFragment.newInstance(bundle);
 
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, galleryInfoFragment);
@@ -78,6 +80,10 @@ public class GalleryActivity extends AppCompatActivity {
         if (id == R.id.action_user_home) {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             return true;
+        }
+
+        if (id == android.R.id.home){
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
