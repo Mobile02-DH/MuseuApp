@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "52134280357",
+    "firebase_url": "https://museuapp-afb6b.firebaseio.com",
+    "project_id": "museuapp-afb6b",
+    "storage_bucket": "museuapp-afb6b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52134280357:android:a3e54ba39a21f08e",
+        "android_client_info": {
+          "package_name": "br.edu.digitalhouse.museuapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52134280357-0ekomblcsmtops8h21e9cj3n5067a53t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.edu.digitalhouse.museuapp",
+            "certificate_hash": "6e205ec8bab6170cc3aacc71b5842a8156fc810e"
+          }
+        },
+        {
+          "client_id": "52134280357-mmbu79phc8lnf73d5j8tb2jqtc61jl97.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpQBrKF13Z5ikGC_BYD2c2jJKjjGo1y2Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52134280357-mmbu79phc8lnf73d5j8tb2jqtc61jl97.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
