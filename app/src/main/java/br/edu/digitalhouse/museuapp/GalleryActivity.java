@@ -83,7 +83,7 @@ public class GalleryActivity extends AppCompatActivity {
         }
 
         if (id == android.R.id.home){
-            onBackPressed();
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

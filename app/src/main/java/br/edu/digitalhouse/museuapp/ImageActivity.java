@@ -63,6 +63,10 @@ public class ImageActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == android.R.id.home){
+            onBackPressed();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
