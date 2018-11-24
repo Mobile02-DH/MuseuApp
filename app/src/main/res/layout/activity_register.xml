@@ -25,7 +25,7 @@
             android:layout_height="125dp"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:src="@drawable/user" />
+            android:src="@drawable/register" />
 
         <TextView
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="You can build your own collections"
+            android:text="You can build your own collection!"
             android:textSize="16dp" />
 
 
