@@ -57,13 +57,10 @@ public class GalleryItemListFragment extends Fragment implements ServiceListener
         gallery = getArguments().getString("number");
         galleryDao.getItems(getContext(), this, gallery);
 
-        adapter = new GalleryRecyclerViewAdapter(new ArrayList<Item>(), new ListClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getContext(), ItemActivity.class);
-                intent.putExtra("item", adapter.getItemList().get(position));
-                startActivity(intent);
-            }
+        adapter = new GalleryRecyclerViewAdapter(new ArrayList<>(), (view1, position) -> {
+            Intent intent = new Intent(getContext(), ItemActivity.class);
+            intent.putExtra("item", adapter.getItemList().get(position));
+            startActivity(intent);
         });
 
         recyclerView = view.findViewById(R.id.recycler_view_items);
