@@ -17,11 +17,9 @@ public class MainActivity extends AppCompatActivity {
 
         visitMuseum = findViewById(R.id.tv_visit);
 
-        visitMuseum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-            }
+        visitMuseum.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            finish();
         });
     }
 }

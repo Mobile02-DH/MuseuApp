@@ -32,6 +32,7 @@
                     app:srcCompat="@drawable/galeria" />
 
                 <Button
+                    android:id="@+id/btn_personal_gallery"
                     style="@style/Base.Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -56,6 +57,7 @@
 
 
                 <TextView
+                    android:id="@+id/txt_user_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -71,6 +73,7 @@
                     android:background="@color/divider" />
 
                 <TextView
+                    android:id="@+id/txt_click_logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -86,6 +89,7 @@
                     android:background="@color/divider" />
 
                 <TextView
+                    android:id="@+id/tct_click_logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -101,6 +105,7 @@
                     android:background="@color/divider" />
 
                 <TextView
+                    android:id="@+id/txt_click_delete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
