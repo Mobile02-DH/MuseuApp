@@ -143,6 +143,4 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }

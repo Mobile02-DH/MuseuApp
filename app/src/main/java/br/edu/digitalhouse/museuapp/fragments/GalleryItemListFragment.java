@@ -3,14 +3,23 @@ package br.edu.digitalhouse.museuapp.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,6 +43,8 @@ public class GalleryItemListFragment extends Fragment implements ServiceListener
     private String gallery;
     private GalleryDao galleryDao = new GalleryDao();
     private ItemResponse itemResponse;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabase;
 
     public GalleryItemListFragment() {
     }
@@ -54,14 +65,23 @@ public class GalleryItemListFragment extends Fragment implements ServiceListener
 
         View view = inflater.inflate(R.layout.fragment_gallery_item_list, container, false);
 
-        gallery = getArguments().getString("number");
-        galleryDao.getItems(getContext(), this, gallery);
+        firebaseAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseAuth.getCurrentUser().getUid());
 
         adapter = new GalleryRecyclerViewAdapter(new ArrayList<>(), (view1, position) -> {
             Intent intent = new Intent(getContext(), ItemActivity.class);
             intent.putExtra("item", adapter.getItemList().get(position));
             startActivity(intent);
         });
+
+        if (getArguments().getBoolean("personal")){
+
+            setViewPersonal();
+
+        }else {
+
+            setViewNotPersonal();
+        }
 
         recyclerView = view.findViewById(R.id.recycler_view_items);
         /*recyclerView.setHasFixedSize(true);*/
@@ -81,5 +101,32 @@ public class GalleryItemListFragment extends Fragment implements ServiceListener
     @Override
     public void onError(Throwable throwable) {
         Toast.makeText(getContext(), "Error: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void setViewNotPersonal(){
+
+        gallery = getArguments().getString("number");
+        galleryDao.getItems(getContext(), this, gallery);
+
+    }
+
+    private void setViewPersonal() {
+
+        List<Item> itemList = new ArrayList<>();
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot itemSnapshot : dataSnapshot.child("items").getChildren()) {
+                    Item item = itemSnapshot.getValue(Item.class);
+                    itemList.add(item);
+                }
+                adapter.update(itemList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("DATABASE", "loadPost:onCancelled", databaseError.toException());
+            }
+        });
     }
 }
