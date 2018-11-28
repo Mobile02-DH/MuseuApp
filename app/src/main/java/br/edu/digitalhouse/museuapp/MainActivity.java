@@ -10,7 +10,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private TextView visitMuseum;
-
     private ImageView image1;
     private ImageView image2;
     private ImageView image3;
@@ -26,56 +25,36 @@ public class MainActivity extends AppCompatActivity {
         image2 = findViewById(R.id.btn_level2);
         image3 = findViewById(R.id.btn_level3);
 
-        visitMuseum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-            }
+        visitMuseum.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            finish();
         });
 
-        image1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //definindo nosso intent/pra onde a gente vai
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                //definindo as informações do bundle
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", 0);
-                //colocando o bundle dentro do intent
-                intent.putExtras(bundle);
-
-                startActivity(intent);
-            }
+        image1.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", 0);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
         });
 
-        image2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //definindo nosso intent/pra onde a gente vai
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                //definindo as informações do bundle
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", 1);
-                //colocando o bundle dentro do intent
-                intent.putExtras(bundle);
-
-                startActivity(intent);
-            }
+        image2.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", 1);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
         });
 
-        image3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //definindo nosso intent/pra onde a gente vai
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-                //definindo as informações do bundle
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", 2);
-                //colocando o bundle dentro do intent
-                intent.putExtras(bundle);
-
-                startActivity(intent);
-            }
+        image3.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", 2);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            finish();
         });
 
     }
