@@ -52,6 +52,8 @@ public class HomeActivity extends AppCompatActivity
         configureDrawerLayout();
         configureViewPager();
         setLoginClickListener(menuHeader);
+
+        onNavigationItemSelected(getIntent().getExtras().getInt("id"));
     }
 
     private void setLoginClickListener(View view){
@@ -164,6 +166,25 @@ public class HomeActivity extends AppCompatActivity
             viewPager.setCurrentItem(1);
 
         } else if (id == R.id.nav_floor_3) {
+            viewPager.setCurrentItem(2);
+
+        } else if (id == R.id.nav_myGallery) {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public boolean onNavigationItemSelected(int id) {
+
+        if (id == 0) {
+            viewPager.setCurrentItem(0);
+
+        } else if (id == 1) {
+            viewPager.setCurrentItem(1);
+
+        } else if (id == 2) {
             viewPager.setCurrentItem(2);
 
         } else if (id == R.id.nav_myGallery) {
