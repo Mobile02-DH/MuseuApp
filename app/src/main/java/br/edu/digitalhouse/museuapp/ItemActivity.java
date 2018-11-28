@@ -2,6 +2,7 @@ package br.edu.digitalhouse.museuapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -36,6 +43,8 @@ public class ItemActivity extends AppCompatActivity {
     private TextView classification;
     private TextView medium;
     private TextView description;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,19 +55,20 @@ public class ItemActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         Intent intent = getIntent();
         item = (Item) intent.getSerializableExtra("item");
         imageList = item.getImages();
 
-        adapter = new ItemImageRecyclerViewAdapter(imageList, new ListClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intentOut = new Intent(getApplicationContext(), ImageActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("imageUrl", imageList.get(position).getImageUrl());
-                intentOut.putExtras(bundle);
-                startActivity(intentOut);
-            }
+        adapter = new ItemImageRecyclerViewAdapter(imageList, (view, position) -> {
+            Intent intentOut = new Intent(getApplicationContext(), ImageActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("imageUrl", imageList.get(position).getImageUrl());
+            intentOut.putExtras(bundle);
+            startActivity(intentOut);
         });
 
         recyclerView = findViewById(R.id.recyclerview_item_image_list);
@@ -102,11 +112,18 @@ public class ItemActivity extends AppCompatActivity {
 
 
         FloatingActionButton fab = findViewById(R.id.fab_item);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Object added to personal gallery", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+        fab.setOnClickListener(view -> {
+
+            if (firebaseAuth.getCurrentUser() != null){
+
+                mDatabase.child("users").child(firebaseAuth.getCurrentUser().getUid()).child("items").child(((Integer)item.getObjectId()).toString())
+                        .setValue(item)
+                        .addOnSuccessListener(aVoid -> Snackbar.make(view, "Object added to personal gallery", Snackbar.LENGTH_LONG).show())
+                        .addOnFailureListener(e -> Toast.makeText(ItemActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show());
+
+            } else {
+
+                Toast.makeText(ItemActivity.this, "You need to be logged in to add items to your personal gallery", Toast.LENGTH_LONG).show();
             }
         });
     }

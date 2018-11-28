@@ -15,6 +15,9 @@ public class ItemPeople implements Serializable {
         this.name = name;
     }
 
+    public ItemPeople() {
+    }
+
     public String getName() {
         return name;
     }

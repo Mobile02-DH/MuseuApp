@@ -52,18 +52,16 @@ public class FloorFragment extends Fragment implements ServiceListener {
         floor = getArguments().getInt("floor");
         floorDao.getGalleries(getContext(), this, floor);
 
-        adapter = new FloorRecyclerViewAdapter(new ArrayList<Gallery>(), new ListClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getContext(), GalleryActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("number", adapter.getGalleryList().get(position).getGalleryNumber());
-                bundle.putString("name", adapter.getGalleryList().get(position).getTheme());
-                bundle.putString("category", adapter.getGalleryList().get(position).getName());
-                bundle.putString("description", adapter.getGalleryList().get(position).getLabelText());
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
+        adapter = new FloorRecyclerViewAdapter(new ArrayList<>(), (view1, position) -> {
+            Intent intent = new Intent(getContext(), GalleryActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("number", adapter.getGalleryList().get(position).getGalleryNumber());
+            bundle.putString("name", adapter.getGalleryList().get(position).getTheme());
+            bundle.putString("category", adapter.getGalleryList().get(position).getName());
+            bundle.putString("description", adapter.getGalleryList().get(position).getLabelText());
+            bundle.putBoolean("personal", false);
+            intent.putExtras(bundle);
+            startActivity(intent);
         });
 
         recyclerView = view.findViewById(R.id.recycler_view_floors_id);

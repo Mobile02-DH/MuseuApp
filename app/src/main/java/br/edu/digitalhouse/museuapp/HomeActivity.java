@@ -52,15 +52,12 @@ public class HomeActivity extends AppCompatActivity
         configureDrawerLayout();
         configureViewPager();
         setLoginClickListener(menuHeader);
+
+        onNavigationItemSelected(getIntent().getExtras().getInt("id"));
     }
 
     private void setLoginClickListener(View view){
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            }
-        });
+        view.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
     }
 
     private void configureViewPager() {
@@ -82,23 +79,17 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setFabListenerWhenOnListDisplay() {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setAdapter(floorMapPageAdapter);
-                viewPager.setOffscreenPageLimit(floorMapPageAdapter.getCount());
-                setFabListenerWhenOnMapDisplay();
-            }
+        fab.setOnClickListener(view -> {
+            viewPager.setAdapter(floorMapPageAdapter);
+            viewPager.setOffscreenPageLimit(floorMapPageAdapter.getCount());
+            setFabListenerWhenOnMapDisplay();
         });
     }
 
     private void setFabListenerWhenOnMapDisplay(){
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setAdapter(floorListPageAdapter);
-                setFabListenerWhenOnListDisplay();
-            }
+        fab.setOnClickListener(view -> {
+            viewPager.setAdapter(floorListPageAdapter);
+            setFabListenerWhenOnListDisplay();
         });
     }
 
@@ -175,6 +166,25 @@ public class HomeActivity extends AppCompatActivity
             viewPager.setCurrentItem(1);
 
         } else if (id == R.id.nav_floor_3) {
+            viewPager.setCurrentItem(2);
+
+        } else if (id == R.id.nav_myGallery) {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public boolean onNavigationItemSelected(int id) {
+
+        if (id == 0) {
+            viewPager.setCurrentItem(0);
+
+        } else if (id == 1) {
+            viewPager.setCurrentItem(1);
+
+        } else if (id == 2) {
             viewPager.setCurrentItem(2);
 
         } else if (id == R.id.nav_myGallery) {

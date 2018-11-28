@@ -15,6 +15,9 @@ public class ItemImage implements Serializable {
         ImageUrl = imageUrl;
     }
 
+    public ItemImage() {
+    }
+
     public String getImageUrl() {
         return ImageUrl;
     }
