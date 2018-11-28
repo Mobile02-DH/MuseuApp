@@ -10,12 +10,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_foreground"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SplashscreenActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".SplashscreenActivity"
+            android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,10 +26,8 @@
         <activity
             android:name=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".LoginActivity" />
-        <activity
-            android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
         <activity
             android:name=".GalleryActivity"
             android:parentActivityName=".HomeActivity">
@@ -38,20 +37,21 @@
         </activity>
         <activity
             android:name=".ItemActivity"
-            android:parentActivityName=".GalleryActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.edu.digitalhouse.museuapp.GalleryActivity" />
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="MainActivity"
+            android:theme="@style/FullScreen" />
         <activity
             android:name=".ImageActivity"
             android:parentActivityName=".ItemActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.edu.digitalhouse.museuapp.ItemActivity" />
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="br.edu.digitalhouse.museuapp.ItemActivity" />
+
+        <activity android:name=".LoungeActivity"></activity>
     </application>
 
 </manifest>

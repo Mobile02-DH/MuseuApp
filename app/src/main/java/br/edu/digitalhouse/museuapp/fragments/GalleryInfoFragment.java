@@ -2,6 +2,7 @@ package br.edu.digitalhouse.museuapp.fragments;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +23,8 @@ public class GalleryInfoFragment extends Fragment {
 
     public static GalleryInfoFragment newInstance (Bundle bundle) {
 
-        Bundle args = bundle;
-
         GalleryInfoFragment fragment = new GalleryInfoFragment();
-        fragment.setArguments(args);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -40,7 +39,13 @@ public class GalleryInfoFragment extends Fragment {
         category = view.findViewById(R.id.gallery_category);
         description = view.findViewById(R.id.gallery_description);
 
-        number.setText("Room "+ getArguments().getString("number"));
+
+        if (getArguments().getBoolean("personal")){
+            number.setText(getArguments().getString("number"));
+
+        } else {
+            number.setText("Room " + getArguments().getString("number"));
+        }
 
         if (getArguments().getString("name") != null){
             name.setText(getArguments().getString("name"));

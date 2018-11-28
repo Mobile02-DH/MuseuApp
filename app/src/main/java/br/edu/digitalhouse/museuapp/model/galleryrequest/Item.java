@@ -71,6 +71,9 @@ public class Item implements Serializable {
         this.classification = classification;
     }
 
+    public Item() {
+    }
+
     public List<ItemPeople> getPeople() {
         return people;
     }
