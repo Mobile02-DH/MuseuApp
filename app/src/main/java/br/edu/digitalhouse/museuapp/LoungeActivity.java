@@ -54,7 +54,7 @@ public class LoungeActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putString("number", "Personal gallery");
             bundle.putString("name", "Your own art exhibition");
-            bundle.putString("category", "Fine arts");
+            bundle.putString("category", "");
             bundle.putString("description", "A collection of beautiful pieces, gathered during this user's tour on this museum");
             bundle.putBoolean("personal", true);
             intent.putExtras(bundle);
