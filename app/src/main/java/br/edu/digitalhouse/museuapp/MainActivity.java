@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView image1;
     private ImageView image2;
     private ImageView image3;
+    private Intent intent;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,37 +27,34 @@ public class MainActivity extends AppCompatActivity {
         image2 = findViewById(R.id.btn_level2);
         image3 = findViewById(R.id.btn_level3);
 
-        visitMuseum.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-            finish();
-        });
+        intent = new Intent(this, HomeActivity.class);
+        bundle = new Bundle();
 
-        image1.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-            Bundle bundle = new Bundle();
+        visitMuseum.setOnClickListener(view -> {
             bundle.putInt("id", 0);
             intent.putExtras(bundle);
             startActivity(intent);
-            finish();
+        });
+
+        image1.setOnClickListener(view -> {
+            bundle.putInt("id", 0);
+            intent.putExtras(bundle);
+            startActivity(intent);
+
         });
 
         image2.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-            Bundle bundle = new Bundle();
             bundle.putInt("id", 1);
             intent.putExtras(bundle);
             startActivity(intent);
-            finish();
+
         });
 
         image3.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
-            Bundle bundle = new Bundle();
             bundle.putInt("id", 2);
             intent.putExtras(bundle);
             startActivity(intent);
-            finish();
-        });
 
+        });
     }
 }

@@ -13,7 +13,6 @@ import br.edu.digitalhouse.museuapp.R;
 
 public class GalleryInfoFragment extends Fragment {
 
-    private TextView number;
     private TextView name;
     private TextView category;
     private TextView description;
@@ -34,18 +33,9 @@ public class GalleryInfoFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_gallery_info, container, false);
 
-        number = view.findViewById(R.id.gallery_number);
         name = view.findViewById(R.id.gallery_name);
         category = view.findViewById(R.id.gallery_category);
         description = view.findViewById(R.id.gallery_description);
-
-
-        if (getArguments().getBoolean("personal")){
-            number.setText(getArguments().getString("number"));
-
-        } else {
-            number.setText("Room " + getArguments().getString("number"));
-        }
 
         if (getArguments().getString("name") != null){
             name.setText(getArguments().getString("name"));

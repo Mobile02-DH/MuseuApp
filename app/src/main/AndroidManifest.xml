@@ -29,29 +29,24 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity
-            android:name=".GalleryActivity"
-            android:parentActivityName=".HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="br.edu.digitalhouse.museuapp.HomeActivity" />
+            android:name=".GalleryActivity">
         </activity>
         <activity
             android:name=".ItemActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="MainActivity"
-            android:theme="@style/FullScreen" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ImageActivity"
-            android:parentActivityName=".ItemActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value="br.edu.digitalhouse.museuapp.ItemActivity" />
 
-        <activity android:name=".LoungeActivity"></activity>
+        <activity android:name=".LoungeActivity" />
     </application>
 
 </manifest>

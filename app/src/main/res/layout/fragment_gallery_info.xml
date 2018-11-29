@@ -12,16 +12,6 @@
         android:padding="8dp"
         tools:context=".fragments.GalleryInfoFragment">
 
-
-        <TextView
-            android:id="@+id/gallery_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:text="Room 0000"
-            android:textColor="@color/secondary_text"
-            android:textSize="18sp" />
-
         <TextView
             android:id="@+id/gallery_name"
             android:layout_width="wrap_content"

@@ -47,7 +47,10 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
 
         initViews();
+
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Galleries");
+
         setFabListenerWhenOnListDisplay();
         configureDrawerLayout();
         configureViewPager();
@@ -80,7 +83,9 @@ public class HomeActivity extends AppCompatActivity
 
     private void setFabListenerWhenOnListDisplay() {
         fab.setOnClickListener(view -> {
+            int tab = viewPager.getCurrentItem();
             viewPager.setAdapter(floorMapPageAdapter);
+            viewPager.setCurrentItem(tab);
             viewPager.setOffscreenPageLimit(floorMapPageAdapter.getCount());
             setFabListenerWhenOnMapDisplay();
         });
@@ -88,7 +93,9 @@ public class HomeActivity extends AppCompatActivity
 
     private void setFabListenerWhenOnMapDisplay(){
         fab.setOnClickListener(view -> {
+            int tab = viewPager.getCurrentItem();
             viewPager.setAdapter(floorListPageAdapter);
+            viewPager.setCurrentItem(tab);
             setFabListenerWhenOnListDisplay();
         });
     }

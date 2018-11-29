@@ -27,11 +27,19 @@ public class GalleryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Intent intent = getIntent();
         bundle = intent.getExtras();
+        if (bundle.getBoolean("personal")){
+            getSupportActionBar().setTitle(bundle.getString("number"));
+        } else{
+            getSupportActionBar().setTitle("Room "+bundle.getString("number"));
+        }
 
         galleryInfoFragment = GalleryInfoFragment.newInstance(bundle);
         galleryItemListFragment = GalleryItemListFragment.newInstance(bundle);

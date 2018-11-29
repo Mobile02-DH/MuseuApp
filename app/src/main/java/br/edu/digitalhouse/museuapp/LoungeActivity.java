@@ -38,6 +38,7 @@ public class LoungeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lounge);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("");
 
         userEmail = findViewById(R.id.txt_user_email);
         logout = findViewById(R.id.txt_click_logout);
@@ -52,7 +53,7 @@ public class LoungeActivity extends AppCompatActivity {
         goGallery.setOnClickListener(v -> {
             Intent intent = new Intent(LoungeActivity.this, GalleryActivity.class);
             Bundle bundle = new Bundle();
-            bundle.putString("number", "Personal gallery");
+            bundle.putString("number", "Personal Gallery");
             bundle.putString("name", "Your own art exhibition");
             bundle.putString("category", "");
             bundle.putString("description", "A collection of beautiful pieces, gathered during this user's tour on this museum");
