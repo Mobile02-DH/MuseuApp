@@ -56,7 +56,9 @@ public class HomeActivity extends AppCompatActivity
         configureViewPager();
         setLoginClickListener(menuHeader);
 
-        onNavigationItemSelected(getIntent().getExtras().getInt("id"));
+        if (getIntent().getExtras() != null) {
+            onNavigationItemSelected(getIntent().getExtras().getInt("id"));
+        }
     }
 
     private void setLoginClickListener(View view){

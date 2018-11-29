@@ -4,5 +4,5 @@
     android:id="@+id/image_level1_map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:src="@drawable/level1_map"
+    android:src="@drawable/level3_map"
     tools:context=".fragments.Map3Fragment"/>
