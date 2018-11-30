@@ -23,9 +23,7 @@ import java.util.List;
 import br.edu.digitalhouse.museuapp.adapter.FloorMapPageAdapter;
 import br.edu.digitalhouse.museuapp.adapter.FloorListPageAdapter;
 import br.edu.digitalhouse.museuapp.fragments.FloorFragment;
-import br.edu.digitalhouse.museuapp.fragments.Map1Fragment;
-import br.edu.digitalhouse.museuapp.fragments.Map2Fragment;
-import br.edu.digitalhouse.museuapp.fragments.Map3Fragment;
+import br.edu.digitalhouse.museuapp.fragments.MapFragment;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -128,9 +126,9 @@ public class HomeActivity extends AppCompatActivity
     private List<Fragment> getMapsFragmentList() {
         List<Fragment> fragments = new ArrayList<>();
 
-        fragments.add(new Map1Fragment());
-        fragments.add(new Map2Fragment());
-        fragments.add(new Map3Fragment());
+        fragments.add(MapFragment.newInstance(1));
+        fragments.add(MapFragment.newInstance(2));
+        fragments.add(MapFragment.newInstance(3));
 
         return fragments;
     }
