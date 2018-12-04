@@ -39,12 +39,11 @@
     <string name="title_activity_gallery">GalleryActivity</string>
     <string name="title_info">Gallery Info</string>
     <string name="title_objects">Gallery Items</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_item">ItemActivity</string>
     <string name="title_activity_image">ImageActivity</string>
     <string name="download_image">Download Image</string>
     <string name="share_image">Share Image</string>
+    <string name="facebook_app_id">200630374202996</string>
+    <string name="fb_login_protocol_scheme">fb200630374202996</string>
 
 </resources>

@@ -12,6 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -31,11 +36,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private Button buttonLogin;
     private SignInButton buttonLoginGoogle;
+    private LoginButton loginButton;
     private TextView register;
     private TextInputEditText txtEmail;
     private TextInputEditText txtPassword;
     private FirebaseAuth firebaseAuth;
     private GoogleApiClient mGoogleApiClient;
+    private CallbackManager callbackManager;
     private static final int RC_SIGN_IN = 9001;
 
     @Override
@@ -49,11 +56,17 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         buttonLogin = findViewById(R.id.button_login);
         buttonLoginGoogle = findViewById(R.id.login_google);
+        loginButton = findViewById(R.id.login_button);
         register = findViewById(R.id.textview_register_now);
         txtEmail = findViewById(R.id.txt_email);
         txtPassword = findViewById(R.id.txt_password);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        if (firebaseAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), LoungeActivity.class));
+            finish();
+        }
 
         buttonLogin.setOnClickListener((view -> {
             String email_value = txtEmail.getText().toString();
@@ -95,11 +108,25 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         buttonLoginGoogle.setOnClickListener(view -> signIn());
 
-        if (firebaseAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), LoungeActivity.class));
-            finish();
-        }
+        callbackManager = CallbackManager.Factory.create();
 
+        loginButton.setReadPermissions("email");
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+        });
     }
 
     private void signIn() {
