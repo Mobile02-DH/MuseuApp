@@ -36,5 +36,14 @@
     <string name="short_password">Password must have at least 6 characters</string>
     <string name="welcome">Welcome</string>
     <string name="invalid_credentials">Invalid e-mail or password</string>
+    <string name="title_activity_gallery">GalleryActivity</string>
+    <string name="title_info">Gallery Info</string>
+    <string name="title_objects">Gallery Items</string>
+    <string name="title_activity_item">ItemActivity</string>
+    <string name="title_activity_image">ImageActivity</string>
+    <string name="download_image">Download Image</string>
+    <string name="share_image">Share Image</string>
+    <string name="facebook_app_id">200630374202996</string>
+    <string name="fb_login_protocol_scheme">fb200630374202996</string>
 
 </resources>

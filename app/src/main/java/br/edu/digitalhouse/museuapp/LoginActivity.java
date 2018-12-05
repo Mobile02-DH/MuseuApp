@@ -2,73 +2,181 @@ package br.edu.digitalhouse.museuapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 
-public class LoginActivity extends AppCompatActivity {
+
+public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+
+    private Button buttonLogin;
+    private SignInButton buttonLoginGoogle;
+    private LoginButton loginButton;
+    private TextView register;
+    private TextInputEditText txtEmail;
+    private TextInputEditText txtPassword;
+    private FirebaseAuth firebaseAuth;
+    private GoogleApiClient mGoogleApiClient;
+    private CallbackManager callbackManager;
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Login");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Inivcialização das View, linkando com o XML
-        Button botaoLogin = findViewById(R.id.button_login);
-        TextView textViewRegisterNow = findViewById(R.id.textview_register_now);
-        final TextInputEditText email = findViewById(R.id.txt_email);
-        final TextInputEditText password = findViewById(R.id.txt_password);
+        buttonLogin = findViewById(R.id.button_login);
+        buttonLoginGoogle = findViewById(R.id.login_google);
+        loginButton = findViewById(R.id.login_button);
+        register = findViewById(R.id.textview_register_now);
+        txtEmail = findViewById(R.id.txt_email);
+        txtPassword = findViewById(R.id.txt_password);
 
-        //Clique no botão de login,onde iremos para a tela de "Home"
-        botaoLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        firebaseAuth = FirebaseAuth.getInstance();
 
-                // criação ca intent que será enviado para proxima tela
-                Intent intent = new Intent(v.getContext(), HomeActivity.class);
+        if (firebaseAuth.getCurrentUser() != null) {
+            startActivity(new Intent(getApplicationContext(), LoungeActivity.class));
+            finish();
+        }
 
-                // Criação do bunble que guardará as informação
-                Bundle bundle = new Bundle();
+        buttonLogin.setOnClickListener((view -> {
+            String email_value = txtEmail.getText().toString();
+            String password_value = txtPassword.getText().toString();
 
-                // Pega os dados que o usuário digitou
-                String emailString = email.getText().toString();
-                String passwordString = password.getText().toString();
+            if (TextUtils.isEmpty(email_value)) {
+                Toast.makeText(getApplicationContext(), "Please fill in the required fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (TextUtils.isEmpty(password_value)) {
+                Toast.makeText(getApplicationContext(), "Please fill in the required fields", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                // validação do dados do usuário
-                LoginManager loginManager = new LoginManager();
-                String senha = loginManager.getSenhaPorUsuario(emailString);
-
-                if (senha != null && passwordString.equals(senha)) {
-
-                    // Iserindo os dados no bundle para envio
-                    bundle.putString("email", emailString);
-                    intent.putExtras(bundle);
-
-
-                    // Iniciamos a chamada para a proxima activity passando a intenção
-                    startActivity(intent);
+            firebaseAuth.signInWithEmailAndPassword(email_value, password_value).addOnCompleteListener((task -> {
+                if (task.isSuccessful()) {
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    Toast.makeText(getApplicationContext(), "Welcome back!", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-
-                    // Se os dados não forem validos mostramos uma menssagem para o usuário
-                    Toast.makeText(LoginActivity.this, R.string.invalid_credentials, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
-            }
+            }));
+        }));
+
+        register.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
         });
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
 
-        //Clique no text "Resgister Now" vamos para a tela de cadastro do usuario
-        textViewRegisterNow.setOnClickListener(new View.OnClickListener() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(LoginActivity.this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        buttonLoginGoogle.setOnClickListener(view -> signIn());
+
+        callbackManager = CallbackManager.Factory.create();
+
+        loginButton.setReadPermissions("email");
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onClick(View view) {
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+            }
 
-                //Iniciamos a chamada para a activity de Registro passando uma intenção
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
             }
         });
+    }
+
+    private void signIn() {
+        Intent signIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                authWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Log.w("Googlebase","Google sign in failed", e);
+            }
+        }
+    }
+
+    private void authWithGoogle(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                finish();
+            } else {
+                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Toast.makeText(getApplicationContext(), "Connection failed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+
+        if (id == android.R.id.home){
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

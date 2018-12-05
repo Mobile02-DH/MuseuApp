@@ -18,7 +18,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@android:color/darker_gray"
+            android:background="@color/accent"
             android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingTop="20dp"

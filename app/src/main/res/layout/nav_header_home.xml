@@ -4,7 +4,7 @@
     android:id="@+id/drawer_menu_header"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@color/primary_light"
+    android:background="@color/white"
     android:gravity="bottom"
     android:orientation="vertical"
 
@@ -19,6 +19,7 @@
         android:layout_height="216dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:scaleType="fitEnd"
         app:srcCompat="@drawable/logo" />
 
 

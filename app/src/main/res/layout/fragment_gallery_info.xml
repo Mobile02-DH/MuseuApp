@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="8dp"
+        tools:context=".fragments.GalleryInfoFragment">
+
+        <TextView
+            android:id="@+id/gallery_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Gallery Name"
+            android:textColor="@color/primary_text"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gallery_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Gallery Category"
+            android:textColor="@color/secondary_text"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/gallery_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description Gallery Description "
+            android:textColor="@color/primary_text"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
@@ -24,9 +23,7 @@ import java.util.List;
 import br.edu.digitalhouse.museuapp.adapter.FloorMapPageAdapter;
 import br.edu.digitalhouse.museuapp.adapter.FloorListPageAdapter;
 import br.edu.digitalhouse.museuapp.fragments.FloorFragment;
-import br.edu.digitalhouse.museuapp.fragments.Map1Fragment;
-import br.edu.digitalhouse.museuapp.fragments.Map2Fragment;
-import br.edu.digitalhouse.museuapp.fragments.Map3Fragment;
+import br.edu.digitalhouse.museuapp.fragments.MapFragment;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -48,20 +45,22 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
 
         initViews();
+
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Galleries");
+
         setFabListenerWhenOnListDisplay();
         configureDrawerLayout();
         configureViewPager();
         setLoginClickListener(menuHeader);
+
+        if (getIntent().getExtras() != null) {
+            onNavigationItemSelected(getIntent().getExtras().getInt("id"));
+        }
     }
 
     private void setLoginClickListener(View view){
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            }
-        });
+        view.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
     }
 
     private void configureViewPager() {
@@ -83,33 +82,31 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void setFabListenerWhenOnListDisplay() {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setAdapter(floorMapPageAdapter);
-                viewPager.setOffscreenPageLimit(floorMapPageAdapter.getCount());
-                setFabListenerWhenOnMapDisplay();
-            }
+        fab.setOnClickListener(view -> {
+            int tab = viewPager.getCurrentItem();
+            viewPager.setAdapter(floorMapPageAdapter);
+            viewPager.setCurrentItem(tab);
+            viewPager.setOffscreenPageLimit(floorMapPageAdapter.getCount());
+            setFabListenerWhenOnMapDisplay();
         });
     }
 
     private void setFabListenerWhenOnMapDisplay(){
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewPager.setAdapter(floorListPageAdapter);
-                setFabListenerWhenOnListDisplay();
-            }
+        fab.setOnClickListener(view -> {
+            int tab = viewPager.getCurrentItem();
+            viewPager.setAdapter(floorListPageAdapter);
+            viewPager.setCurrentItem(tab);
+            setFabListenerWhenOnListDisplay();
         });
     }
 
     private void initViews(){
-        toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_item);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         tabLayout = findViewById(R.id.tabs);
         viewPager = findViewById(R.id.container);
-        fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab_item);
 
         headerView = navigationView.getHeaderView(0);
         menuHeader = headerView.findViewById(R.id.drawer_menu_header);
@@ -129,9 +126,9 @@ public class HomeActivity extends AppCompatActivity
     private List<Fragment> getMapsFragmentList() {
         List<Fragment> fragments = new ArrayList<>();
 
-        fragments.add(new Map1Fragment());
-        fragments.add(new Map2Fragment());
-        fragments.add(new Map3Fragment());
+        fragments.add(MapFragment.newInstance(1));
+        fragments.add(MapFragment.newInstance(2));
+        fragments.add(MapFragment.newInstance(3));
 
         return fragments;
     }
@@ -147,19 +144,17 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.home_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_user_home) {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             return true;
         }
 
@@ -180,11 +175,27 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_floor_3) {
             viewPager.setCurrentItem(2);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_myGallery) {
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        }
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public boolean onNavigationItemSelected(int id) {
+
+        if (id == 0) {
+            viewPager.setCurrentItem(0);
+
+        } else if (id == 1) {
+            viewPager.setCurrentItem(1);
+
+        } else if (id == 2) {
+            viewPager.setCurrentItem(2);
 
         } else if (id == R.id.nav_myGallery) {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-
         }
 
         drawer.closeDrawer(GravityCompat.START);
