@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "52134280357-g13b1n5duvm4olgsqql4qbig8ch2n1bk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.edu.digitalhouse.museuapp",
+            "certificate_hash": "f3bc742ca14cb0b9506e56e169b8d6742c75c9a7"
+          }
+        },
+        {
           "client_id": "52134280357-mmbu79phc8lnf73d5j8tb2jqtc61jl97.apps.googleusercontent.com",
           "client_type": 3
         }

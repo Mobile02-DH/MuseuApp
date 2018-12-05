@@ -6,7 +6,7 @@
     android:layout_gravity="center_horizontal"
     android:layout_margin="16dp">
 
-    <ImageView
+    <ozaydin.serkan.com.image_zoom_view.ImageViewZoom
         android:id="@+id/img_item_list_large"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
