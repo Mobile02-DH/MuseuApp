@@ -65,7 +65,8 @@ public class ItemImageRecyclerViewAdapter extends RecyclerView.Adapter<ItemImage
         public void bind(final ItemImage itemImage) {
 
             Picasso.get()
-                    .load(itemImage.getImageUrl()+"?height=500&width=500")
+                    //.load(itemImage.getImageUrl()+"?height=500&width=500")
+                    .load(itemImage.getImageUrl())
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.placeholder)
                     .into(itemImageLarge);
