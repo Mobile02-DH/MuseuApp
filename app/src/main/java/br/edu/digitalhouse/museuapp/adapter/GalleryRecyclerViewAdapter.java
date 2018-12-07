@@ -1,6 +1,7 @@
 package br.edu.digitalhouse.museuapp.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.digitalhouse.museuapp.Interfaces.ListClickListener;
@@ -44,9 +46,7 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
 
         Item item = itemList.get(i);
 
-        if (item.getImages() != null) {
-            viewHolder.bind(item);
-        }
+        viewHolder.bind(item);
 
     }
 
@@ -56,10 +56,17 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
     }
 
     public void update(List<Item> records) {
+        List<Item> cleanList = new ArrayList<>();
+        for (Item record : records) {
+            if(record.getImages() != null && (!record.getImages().isEmpty())){
+                cleanList.add(record);
+            }
+        }
+
         if (this.itemList.isEmpty()) {
-            this.itemList = records;
+            this.itemList = cleanList;
         } else {
-            this.itemList.addAll(records);
+            this.itemList.addAll(cleanList);
         }
         notifyDataSetChanged();
     }
@@ -85,7 +92,7 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
 
             try {
                 Picasso.get()
-                        .load(item.getImages().get(0).getImageUrl()+"?height=200&width=200")
+                        .load(item.getImages().get(0).getImageUrl() + "?height=200&width=200")
                         .placeholder(R.drawable.placeholder)
                         .error(R.drawable.placeholder)
                         .into(imageSample);
@@ -94,8 +101,8 @@ public class GalleryRecyclerViewAdapter extends RecyclerView.Adapter<GalleryRecy
             } catch (Exception e) {
                 Log.d("IMAGE ARRAY", "EMPTY");
             }
-
         }
+
 
         @Override
         public void onClick(View v) {

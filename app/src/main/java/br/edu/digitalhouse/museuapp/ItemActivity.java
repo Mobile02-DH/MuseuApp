@@ -1,10 +1,14 @@
 package br.edu.digitalhouse.museuapp;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -56,6 +60,8 @@ public class ItemActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Item Details");
 
+        darkenStatusBar();
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -70,7 +76,7 @@ public class ItemActivity extends AppCompatActivity {
             bundle.putString("imageUrl", imageList.get(position).getImageUrl());
             intentOut.putExtras(bundle);
             startActivity(intentOut);
-        });
+        }, this);
 
         recyclerView = findViewById(R.id.recyclerview_item_image_list);
         /*recyclerView.setHasFixedSize(true);*/
@@ -150,6 +156,14 @@ public class ItemActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void darkenStatusBar() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.primary_dark));
+        }
+
     }
 
 }
