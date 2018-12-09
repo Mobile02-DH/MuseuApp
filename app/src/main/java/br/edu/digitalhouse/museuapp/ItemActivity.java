@@ -1,33 +1,30 @@
 package br.edu.digitalhouse.museuapp;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-import br.edu.digitalhouse.museuapp.Interfaces.ListClickListener;
 import br.edu.digitalhouse.museuapp.adapter.ItemImageRecyclerViewAdapter;
 import br.edu.digitalhouse.museuapp.model.galleryrequest.Item;
 import br.edu.digitalhouse.museuapp.model.galleryrequest.ItemImage;
@@ -49,6 +46,7 @@ public class ItemActivity extends AppCompatActivity {
     private TextView description;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference mDatabase;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +62,18 @@ public class ItemActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
 
         Intent intent = getIntent();
         item = (Item) intent.getSerializableExtra("item");
         imageList = item.getImages();
 
         adapter = new ItemImageRecyclerViewAdapter(imageList, (view, position) -> {
-            Intent intentOut = new Intent(getApplicationContext(), ImageActivity.class);
+            /*Intent intentOut = new Intent(getApplicationContext(), ImageActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("imageUrl", imageList.get(position).getImageUrl());
             intentOut.putExtras(bundle);
-            startActivity(intentOut);
+            startActivity(intentOut);*/
         }, this);
 
         recyclerView = findViewById(R.id.recyclerview_item_image_list);
@@ -91,41 +89,75 @@ public class ItemActivity extends AppCompatActivity {
         classification = findViewById(R.id.txt_item_details_classification);
         medium = findViewById(R.id.txt_item_details_medium);
         description = findViewById(R.id.txt_item_details_description);
+        fab = findViewById(R.id.fab_item);
 
         try {
-            if (item.getPeople().size() == 1){
+            if (item.getPeople().size() == 1) {
                 artist.setText(item.getPeople().get(0).getName());
             } else {
                 StringBuilder people = new StringBuilder();
-                for (ItemPeople itemPeople: item.getPeople()){
+                for (ItemPeople itemPeople : item.getPeople()) {
                     people.append(itemPeople.getName() + "; ");
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             artist.setText("Unknown Author");
         }
 
         title.setText(item.getTitle());
-        dated.setText("Dated: "+item.getDated());
-        division.setText("Division: "+item.getDivision());
-        culture.setText("Culture: "+item.getCulture());
-        classification.setText("Classification: "+item.getClassification());
-        medium.setText("Medium: "+item.getMedium());
-        if (item.getLabelText() == null){
+        dated.setText("Dated: " + item.getDated());
+        division.setText("Division: " + item.getDivision());
+        culture.setText("Culture: " + item.getCulture());
+        classification.setText("Classification: " + item.getClassification());
+        medium.setText("Medium: " + item.getMedium());
+        if (item.getLabelText() == null) {
             description.setText("Description: No description available.");
         } else {
-            description.setText("Description: "+item.getLabelText());
+            description.setText("Description: " + item.getLabelText());
         }
 
+        verifyItemIsSaved();
+    }
 
-        FloatingActionButton fab = findViewById(R.id.fab_item);
+    private void verifyItemIsSaved() {
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                try {
+                    Item anItem = dataSnapshot.child(firebaseAuth.getCurrentUser().getUid()).child("items").child(((Integer) item.getObjectId()).toString())
+                            .getValue(Item.class);
+                    if (anItem != null){
+                        setButtonAlreadySaved();
+                    } else {
+                        setButtonNotYetSaved();
+                    }
+
+                }catch (NullPointerException e){
+                    setButtonNotYetSaved();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("DATABASE", "loadPost:onCancelled", databaseError.toException());
+            }
+        });
+    }
+
+    private void setButtonNotYetSaved() {
         fab.setOnClickListener(view -> {
 
-            if (firebaseAuth.getCurrentUser() != null){
+            if (firebaseAuth.getCurrentUser() != null) {
 
-                mDatabase.child("users").child(firebaseAuth.getCurrentUser().getUid()).child("items").child(((Integer)item.getObjectId()).toString())
+                mDatabase.child(firebaseAuth.getCurrentUser().getUid()).child("items").child(((Integer) item.getObjectId()).toString())
                         .setValue(item)
-                        .addOnSuccessListener(aVoid -> Snackbar.make(view, "Object added to personal gallery", Snackbar.LENGTH_LONG).show())
+                        .addOnSuccessListener(aVoid -> {
+                            Snackbar.make(view, "Object added to personal gallery", Snackbar.LENGTH_LONG).show();
+                            setButtonAlreadySaved();
+                        })
                         .addOnFailureListener(e -> Toast.makeText(ItemActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show());
 
             } else {
@@ -134,6 +166,23 @@ public class ItemActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void setButtonAlreadySaved() {
+        fab.setImageResource(R.drawable.ic_star_filled_white_24dp);
+        fab.setOnClickListener(view ->
+                mDatabase.child(firebaseAuth.getCurrentUser().getUid()).child("items").child(((Integer) item.getObjectId()).toString())
+                        .removeValue()
+                        .addOnSuccessListener(aVoid -> {
+                            Snackbar.make(view, "Object removed from personal gallery", Snackbar.LENGTH_LONG).show();
+                            fab.setImageResource(R.drawable.ic_star_border_white_24dp);
+                            setButtonNotYetSaved();
+                        })
+                        .addOnFailureListener(e -> Toast.makeText(ItemActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show()));
+    }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -151,7 +200,7 @@ public class ItemActivity extends AppCompatActivity {
             return true;
         }
 
-        if (id == android.R.id.home){
+        if (id == android.R.id.home) {
             finish();
         }
 
