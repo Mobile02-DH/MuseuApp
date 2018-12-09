@@ -4,7 +4,6 @@ package br.edu.digitalhouse.museuapp.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,19 +20,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.digitalhouse.museuapp.Interfaces.ListClickListener;
 import br.edu.digitalhouse.museuapp.Interfaces.ServiceListener;
 import br.edu.digitalhouse.museuapp.ItemActivity;
 import br.edu.digitalhouse.museuapp.R;
 import br.edu.digitalhouse.museuapp.adapter.GalleryRecyclerViewAdapter;
 import br.edu.digitalhouse.museuapp.model.dao.GalleryDao;
 import br.edu.digitalhouse.museuapp.model.galleryrequest.Item;
-import br.edu.digitalhouse.museuapp.model.galleryrequest.ItemImage;
-import br.edu.digitalhouse.museuapp.model.galleryrequest.ItemPeople;
 import br.edu.digitalhouse.museuapp.model.galleryrequest.ItemResponse;
 
 public class GalleryItemListFragment extends Fragment implements ServiceListener {
@@ -49,7 +44,7 @@ public class GalleryItemListFragment extends Fragment implements ServiceListener
     public GalleryItemListFragment() {
     }
 
-    public static GalleryItemListFragment newInstance (Bundle bundle) {
+    public static GalleryItemListFragment newInstance(Bundle bundle) {
 
         Bundle args = bundle;
 
@@ -74,11 +69,11 @@ public class GalleryItemListFragment extends Fragment implements ServiceListener
             startActivity(intent);
         });
 
-        if (getArguments().getBoolean("personal")){
+        if (getArguments().getBoolean("personal")) {
 
             setViewPersonal();
 
-        }else {
+        } else {
 
             setViewNotPersonal();
         }
@@ -90,6 +85,7 @@ public class GalleryItemListFragment extends Fragment implements ServiceListener
 
         return view;
     }
+
 
     @Override
     public void onSucess(Object object) {
@@ -103,7 +99,7 @@ public class GalleryItemListFragment extends Fragment implements ServiceListener
         Toast.makeText(getContext(), "Error: " + throwable.getMessage(), Toast.LENGTH_SHORT).show();
     }
 
-    private void setViewNotPersonal(){
+    private void setViewNotPersonal() {
 
         gallery = getArguments().getString("number");
         galleryDao.getItems(getContext(), this, gallery);

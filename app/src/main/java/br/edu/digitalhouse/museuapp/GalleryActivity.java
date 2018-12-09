@@ -20,6 +20,7 @@ public class GalleryActivity extends AppCompatActivity {
     private GalleryItemListFragment galleryItemListFragment;
     private FragmentTransaction fragmentTransaction;
     private Bundle bundle;
+    private int marker = 1;
 
 
     @Override
@@ -50,6 +51,17 @@ public class GalleryActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (bundle.getBoolean("personal") && marker == 2){
+            galleryItemListFragment = GalleryItemListFragment.newInstance(bundle);
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, galleryItemListFragment);
+            fragmentTransaction.commit();
+        }
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -60,6 +72,7 @@ public class GalleryActivity extends AppCompatActivity {
                     fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_container, galleryInfoFragment);
                     fragmentTransaction.commit();
+                    marker = 1;
 
                     return true;
 
@@ -67,6 +80,7 @@ public class GalleryActivity extends AppCompatActivity {
                     fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_container, galleryItemListFragment);
                     fragmentTransaction.commit();
+                    marker = 2;
 
                     return true;
             }
