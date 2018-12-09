@@ -27,15 +27,11 @@ public class SplashscreenActivity extends AppCompatActivity {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                showHome(null);
+                startActivity(new Intent(SplashscreenActivity.this, MainActivity.class));
+                finish();
             }
         }, 3000);
 
-    }
-
-    private void showHome(View view) {
-        startActivity(new Intent(SplashscreenActivity.this, MainActivity.class));
-        finish();
     }
 
     private void printKeyHash(){

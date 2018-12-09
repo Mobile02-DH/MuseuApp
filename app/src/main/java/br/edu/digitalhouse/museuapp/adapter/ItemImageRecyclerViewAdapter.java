@@ -83,6 +83,7 @@ public class ItemImageRecyclerViewAdapter extends RecyclerView.Adapter<ItemImage
             itemImageLarge.setConfig(imageViewZoomConfig);
 
             itemImageLarge.setOnLongClickListener(v -> {
+
                 try {
 
                     String insertImage = MediaStore.Images.Media.insertImage(activity.getContentResolver(), itemImageLarge.getBitmap(), "teste", "image from Museu Mapp");

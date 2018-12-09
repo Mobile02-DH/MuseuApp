@@ -75,7 +75,7 @@ public class GalleryItemListFragment extends Fragment implements ServiceListener
         });
 
         if (getArguments().getBoolean("personal")){
-            mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseAuth.getCurrentUser().getUid());
+
             setViewPersonal();
 
         }else {
@@ -111,6 +111,8 @@ public class GalleryItemListFragment extends Fragment implements ServiceListener
     }
 
     private void setViewPersonal() {
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseAuth.getCurrentUser().getUid());
 
         List<Item> itemList = new ArrayList<>();
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {

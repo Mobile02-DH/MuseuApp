@@ -27,10 +27,10 @@ public class LoungeActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private Button goGallery;
+    private Button editGallery;
     private TextView userEmail;
     private TextView logout;
     private TextView deleteUser;
-    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +44,9 @@ public class LoungeActivity extends AppCompatActivity {
         logout = findViewById(R.id.txt_click_logout);
         deleteUser = findViewById(R.id.txt_click_delete);
         goGallery = findViewById(R.id.btn_personal_gallery);
+        editGallery = findViewById(R.id.btn_edit_personal);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseAuth.getCurrentUser().getUid());
 
         userEmail.setText(firebaseAuth.getCurrentUser().getEmail());
 
@@ -59,6 +59,11 @@ public class LoungeActivity extends AppCompatActivity {
             bundle.putString("description", "A collection of beautiful pieces, gathered during this user's tour on this museum");
             bundle.putBoolean("personal", true);
             intent.putExtras(bundle);
+            startActivity(intent);
+        });
+
+        editGallery.setOnClickListener(view -> {
+            Intent intent = new Intent(LoungeActivity.this, EditActivity.class);
             startActivity(intent);
         });
 
