@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView visitMuseum;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         bundle = new Bundle();
 
         visitMuseum.setOnClickListener(view -> {
+            /*Crashlytics.getInstance().crash();*/
             bundle.putInt("id", 0);
             intent.putExtras(bundle);
             startActivity(intent);

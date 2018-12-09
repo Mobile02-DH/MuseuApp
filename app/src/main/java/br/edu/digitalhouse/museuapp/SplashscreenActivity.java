@@ -22,7 +22,7 @@ public class SplashscreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
 
-        printKeyHash();
+        /*printKeyHash();*/
 
         new Timer().schedule(new TimerTask() {
             @Override
@@ -34,7 +34,7 @@ public class SplashscreenActivity extends AppCompatActivity {
 
     }
 
-    private void printKeyHash(){
+   /* private void printKeyHash(){
         try{
             PackageInfo info = getPackageManager().getPackageInfo("br.edu.digitalhouse.museuapp", PackageManager.GET_SIGNATURES);
             for (Signature signature:info.signatures){
@@ -48,5 +48,5 @@ public class SplashscreenActivity extends AppCompatActivity {
         }catch (NoSuchAlgorithmException e){
             e.printStackTrace();
         }
-    }
+    }*/
 }
