@@ -74,7 +74,7 @@ public class ItemImageRecyclerViewAdapter extends RecyclerView.Adapter<ItemImage
 
             itemImageLarge = itemView.findViewById(R.id.img_item_list_large);
 
-            imageViewZoomConfig = new ImageViewZoomConfig();
+            /*imageViewZoomConfig = new ImageViewZoomConfig();
             imageViewZoomConfig.saveProperty(true);
 
             ImageViewZoomConfig.ImageViewZoomConfigSaveMethod imageViewZoomConfigSaveMethod = ImageViewZoomConfig.ImageViewZoomConfigSaveMethod.always;
@@ -83,6 +83,7 @@ public class ItemImageRecyclerViewAdapter extends RecyclerView.Adapter<ItemImage
             itemImageLarge.setConfig(imageViewZoomConfig);
 
             itemImageLarge.setOnLongClickListener(v -> {
+
                 try {
 
                     String insertImage = MediaStore.Images.Media.insertImage(activity.getContentResolver(), itemImageLarge.getBitmap(), "teste", "image from Museu Mapp");
@@ -100,7 +101,7 @@ public class ItemImageRecyclerViewAdapter extends RecyclerView.Adapter<ItemImage
                 return false;
             });
 
-
+*/
 //            itemImageLarge.saveImage(activity, "MuseuMapp", "art", Bitmap.CompressFormat.JPEG, 1, imageViewZoomConfig, new SaveFileListener() {
 //                @Override
 //                public void onSuccess(File file) {
